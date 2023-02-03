@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @Autowired
     private TestEntityRepository testEntityRepository;
+
     @GetMapping
     public @ResponseBody Iterable<TestEntity> test()
     {

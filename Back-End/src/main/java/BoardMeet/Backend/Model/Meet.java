@@ -1,147 +1,138 @@
 package BoardMeet.Backend.Model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Meet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column
-    private  String Name;
-    @Column
-    private  Integer PeopleCount;
-    @Column
-    private  Integer PeopleCountMax;
-    @Column
-    private  Integer Duration;
-    @Column
-    private  String Link;
-    @Column
-    private Date Date;
-    @Column
-    private  String State;
-    @Column
-    private  String Location;
-    @Column
-    private  String City;
-    @Column
-    private  String Games;
-    @ManyToMany
-    private List<User> Players;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User Author;
+public class Meet extends  BaseEntity{
 
-
+    @Column
+    private  String name;
+    @Column
+    private  Integer peopleCount;
+    @Column
+    private  Integer peopleCountMax;
+    @Column
+    private  Integer duration;
+    @Column
+    private  String link;
+    @Column
+    private Date date;
+    @Column
+    private  String state;
+    @Column
+    private  String location;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public Integer getPeopleCount() {
-        return PeopleCount;
+        return peopleCount;
     }
 
     public void setPeopleCount(Integer peopleCount) {
-        PeopleCount = peopleCount;
+        this.peopleCount = peopleCount;
     }
 
     public Integer getPeopleCountMax() {
-        return PeopleCountMax;
+        return peopleCountMax;
     }
 
     public void setPeopleCountMax(Integer peopleCountMax) {
-        PeopleCountMax = peopleCountMax;
+        this.peopleCountMax = peopleCountMax;
     }
 
     public Integer getDuration() {
-        return Duration;
+        return duration;
     }
 
     public void setDuration(Integer duration) {
-        Duration = duration;
+        this.duration = duration;
     }
 
     public String getLink() {
-        return Link;
+        return link;
     }
 
     public void setLink(String link) {
-        Link = link;
+        this.link = link;
     }
 
-    public java.util.Date getDate() {
-        return Date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate(java.util.Date date) {
-        Date = date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getState() {
-        return State;
+        return state;
     }
 
     public void setState(String state) {
-        State = state;
+        this.state = state;
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(String location) {
-        Location = location;
+        this.location = location;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getGames() {
-        return Games;
+        return games;
     }
 
     public void setGames(String games) {
-        Games = games;
+        this.games = games;
     }
 
-
     public List<User> getPlayers() {
-        return Players;
+        return players;
     }
 
     public void setPlayers(List<User> players) {
-        Players = players;
+        this.players = players;
     }
 
     public User getAuthor() {
-        return Author;
+        return author;
     }
 
-    public void setAuthor(User Author) {
-        this.Author = Author;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public Long getId() {
-        return id;
-    }
+    @Column
+    private  String city;
+    @Column
+    private  String games;
+    @ManyToMany
+    private List<User> players;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
+
 
 }

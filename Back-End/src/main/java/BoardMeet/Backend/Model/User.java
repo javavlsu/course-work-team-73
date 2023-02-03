@@ -1,138 +1,151 @@
 package BoardMeet.Backend.Model;
 
-import jakarta.persistence.*;
+import BoardMeet.Backend.dto.UserRegisterDTO;
+
+import javax.persistence.*;
 
 import java.util.List;
 
+
 @Entity
 @Table(name="users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class User extends  BaseEntity{
+
     @Column
-    private String Email;
+    private String email;
     @Column
-    private  String Password;
+    private  String password;
+    @Column(name ="user_name")
+    private  String username;
     @Column
-    private  String UserName;
+    private   String name;
     @Column
-    private   String Name;
+    private  String avatarUrl;
     @Column
-    private  String Role;
+    private  String city;
     @Column
-    private  String AvatarUrl;
+    private  String aboutMe;
     @Column
-    private  String City;
-    @Column
-    private  String AboutMe;
+    @ManyToMany
+    private List<Role> roles;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+
+    public User (UserRegisterDTO userDTO){
+        email= userDTO.getEmail();
+        password = userDTO.getPassword();
+        username = userDTO.getUsername();
+        name = userDTO.getName();
+        city = userDTO.getCity();
+        aboutMe = userDTO.getAboutMe();
+        roles = userDTO.getRoles();
+        super.setStatus(Status.ACTIVE);
+    }
+    public User (){}
+
     @OneToMany
     private List<BoardGame> CreateBoardGames;
     @ManyToMany
     private List<Meet> JoinedMeets;
     @OneToMany
     private List<Meet> CreatedMeets;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public void setPassword(String password) {
-        Password = password;
-    }
 
-    public void setUserName(String userName) {
-        UserName = userName;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public void setRole(String role) {
-        Role = role;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        AvatarUrl = avatarUrl;
-    }
-
-    public void setCity(String city) {
-        City = city;
-    }
-
-    public void setAboutMe(String aboutMe) {
-        AboutMe = aboutMe;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public String getUserName() {
-        return UserName;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public String getRole() {
-        return Role;
-    }
-
-    public String getAvatarUrl() {
-        return AvatarUrl;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public String getAboutMe() {
-        return AboutMe;
+    public void setUsername(String username) {
+        username = username;
     }
 
 
 
-    public String getEmail() {
-        return Email;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
-    public List<BoardGame> getCreateBoardGames() {
+    public List  getCreateBoardGames() {
         return CreateBoardGames;
     }
 
-    public void setCreateBoardGames(List<BoardGame> createBoardGames) {
+    public void setCreateBoardGames(List createBoardGames) {
         CreateBoardGames = createBoardGames;
     }
 
-    public List<Meet> getJoinedMeets() {
+    public List getJoinedMeets() {
         return JoinedMeets;
     }
 
-    public void setJoinedMeets(List<Meet> joinedMeets) {
+    public void setJoinedMeets(List joinedMeets) {
         JoinedMeets = joinedMeets;
     }
 
 
 
-    public List<Meet> getCreatedMeets() {
+    public List getCreatedMeets() {
         return CreatedMeets;
     }
 
-    public void setCreatedMeets(List<Meet> createdMeets) {
+    public void setCreatedMeets(List createdMeets) {
         CreatedMeets = createdMeets;
     }
-
 
 
 

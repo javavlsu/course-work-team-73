@@ -1,113 +1,100 @@
 package BoardMeet.Backend.Model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
-public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column
-    private String Body;
-    @Column
-    private  Integer Rating;
-    @Column
-    private  Integer WeightGame;
-    @Column
-    private  Integer GameTime;
-    @Column
-    private  Integer BestPlayerMin;
-    @Column
-    private  Integer BestPlayerMax;
-    @Column
-    private  Integer AgePlayer;
+public class Comment extends  BaseEntity{
 
+    @Column
+    private String body;
+    @Column
+    private  Integer rating;
+    @Column
+    private  Integer weightGame;
+    @Column
+    private  Integer gameTime;
+    @Column
+    private  Integer bestPlayerMin;
+    @Column
+    private  Integer bestPlayerMax;
+    @Column
+    private  Integer agePlayer;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User Author;
-
-
+    private User author;
     @ManyToOne
     @JoinColumn(name = "game_id")
-    private BoardGame Game;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private BoardGame game;
+
     public String getBody() {
-        return Body;
+        return body;
     }
 
     public void setBody(String body) {
-        Body = body;
+        this.body = body;
     }
 
     public Integer getRating() {
-        return Rating;
+        return rating;
     }
 
     public void setRating(Integer rating) {
-        Rating = rating;
+        this.rating = rating;
     }
 
     public Integer getWeightGame() {
-        return WeightGame;
+        return weightGame;
     }
 
     public void setWeightGame(Integer weightGame) {
-        WeightGame = weightGame;
+        this.weightGame = weightGame;
     }
 
     public Integer getGameTime() {
-        return GameTime;
+        return gameTime;
     }
 
     public void setGameTime(Integer gameTime) {
-        GameTime = gameTime;
+        this.gameTime = gameTime;
     }
 
     public Integer getBestPlayerMin() {
-        return BestPlayerMin;
+        return bestPlayerMin;
     }
 
     public void setBestPlayerMin(Integer bestPlayerMin) {
-        BestPlayerMin = bestPlayerMin;
+        this.bestPlayerMin = bestPlayerMin;
     }
 
     public Integer getBestPlayerMax() {
-        return BestPlayerMax;
+        return bestPlayerMax;
     }
 
     public void setBestPlayerMax(Integer bestPlayerMax) {
-        BestPlayerMax = bestPlayerMax;
+        this.bestPlayerMax = bestPlayerMax;
     }
 
     public Integer getAgePlayer() {
-        return AgePlayer;
+        return agePlayer;
     }
 
     public void setAgePlayer(Integer agePlayer) {
-        AgePlayer = agePlayer;
+        this.agePlayer = agePlayer;
     }
 
     public User getAuthor() {
-        return Author;
+        return author;
     }
 
-    public void setAuthor(User Author) {
-        this.Author = Author;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public BoardGame getGame() {
-        return Game;
+        return game;
     }
 
-    public void setGame(BoardGame Game) {
-        this.Game = Game;
+    public void setGame(BoardGame game) {
+        this.game = game;
     }
-
-
 }

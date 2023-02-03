@@ -1,229 +1,226 @@
 package BoardMeet.Backend.Model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.List;
 
+
 @Entity
-public class BoardGame {
+public class BoardGame extends  BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
     @Column
-    private  String Name;
+    private  String name;
     @Column
-    private  Integer RangeOfPlayersMin;
+    private  Integer rangeOfPlayersMin;
     @Column
-    private  Integer RangeOfPlayersMax;
+    private  Integer rangeOfPlayersMax;
     @Column
-    private Integer GameTime;
+    private Integer gameTime;
     @Column
-    private  Double BestRangeOfPlayersMinUser;
+    private  Double bestRangeOfPlayersMinUser;
     @Column
-    private  Double BestRangeOfPlayersMaxUser;
+    private  Double bestRangeOfPlayersMaxUser;
     @Column
-    private  Double GameTimeUser;
+    private  Double gameTimeUser;
     @Column
-    private  Double RatingUser;
+    private  Double ratingUser;
     @Column
-    private  String Description;
+    private  String description;
     @Column
-    private Double WeightGameUser;
+    private Double weightGameUser;
     @Column
-    private  Integer AgePlayer;
+    private  Integer agePlayer;
     @Column
-    private  Double AgePlayerUSer;
+    private  Double agePlayerUSer;
     @Column
-    private  String Rule;
+    private  String rule;
     @Column
-    private String GameAvatar;
+    private String gameAvatar;
     @Column
-    private String AuthorsGame;
+    private String authorsGame;
     @Column
-    private  String Artists;
+    private  String artists;
     @Column
-    private String Publishers;
+    private String publishers;
     @Column
-    private  Integer CountComment;
-    @ManyToOne
-    private  List<Comment> Comments;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User Author;
+    private  Integer countComment;
+    @OneToMany
+    private List<Comment> comments;
 
-
-    public Integer getCountComment() {
-        return CountComment;
-    }
-
-    public void setCountComment(Integer countComment) {
-        CountComment = countComment;
-    }
-
-
-    public List<Comment> getComments() {
-        return Comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        Comments = comments;
-    }
-
-
-
-
-    public User getAuthor() {
-        return Author;
-    }
-
-    public void setAuthor(User Author) {
-        this.Author = Author;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public Integer getRangeOfPlayersMin() {
-        return RangeOfPlayersMin;
-    }
-
-    public void setRangeOfPlayersMin(Integer rangeOfPlayersMin) {
-        RangeOfPlayersMin = rangeOfPlayersMin;
-    }
-
-    public Integer getRangeOfPlayersMax() {
-        return RangeOfPlayersMax;
-    }
-
-    public void setRangeOfPlayersMax(Integer rangeOfPlayersMax) {
-        RangeOfPlayersMax = rangeOfPlayersMax;
-    }
-
-    public Integer getGameTime() {
-        return GameTime;
-    }
-
-    public void setGameTime(Integer gameTime) {
-        GameTime = gameTime;
-    }
-
-    public Double getBestRangeOfPlayersMinUser() {
-        return BestRangeOfPlayersMinUser;
-    }
-
-    public void setBestRangeOfPlayersMinUser(Double bestRangeOfPlayersMinUser) {
-        BestRangeOfPlayersMinUser = bestRangeOfPlayersMinUser;
-    }
-
-    public Double getBestRangeOfPlayersMaxUser() {
-        return BestRangeOfPlayersMaxUser;
-    }
-
-    public void setBestRangeOfPlayersMaxUser(Double bestRangeOfPlayersMaxUser) {
-        BestRangeOfPlayersMaxUser = bestRangeOfPlayersMaxUser;
-    }
-
-    public Double getGameTimeUser() {
-        return GameTimeUser;
-    }
-
-    public void setGameTimeUser(Double gameTimeUser) {
-        GameTimeUser = gameTimeUser;
-    }
-
-    public Double getRatingUser() {
-        return RatingUser;
-    }
-
-    public void setRatingUser(Double ratingUser) {
-        RatingUser = ratingUser;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public Double getWeightGameUser() {
-        return WeightGameUser;
-    }
-
-    public void setWeightGameUser(Double weightGameUser) {
-        WeightGameUser = weightGameUser;
-    }
-
-    public Integer getAgePlayer() {
-        return AgePlayer;
-    }
-
-    public void setAgePlayer(Integer agePlayer) {
-        AgePlayer = agePlayer;
-    }
-
-    public Double getAgePlayerUSer() {
-        return AgePlayerUSer;
-    }
-
-    public void setAgePlayerUSer(Double agePlayerUSer) {
-        AgePlayerUSer = agePlayerUSer;
-    }
-
-    public String getRule() {
-        return Rule;
-    }
-
-    public void setRule(String rule) {
-        Rule = rule;
-    }
-
-    public String getGameAvatar() {
-        return GameAvatar;
-    }
-
-    public void setGameAvatar(String gameAvatar) {
-        GameAvatar = gameAvatar;
-    }
-
-    public String getAuthorsGame() {
-        return AuthorsGame;
-    }
-
-    public void setAuthorsGame(String authorsGame) {
-        AuthorsGame = authorsGame;
-    }
-
-    public String getArtists() {
-        return Artists;
-    }
-
-    public void setArtists(String artists) {
-        Artists = artists;
-    }
-
-    public String getPublishers() {
-        return Publishers;
-    }
-
-    public void setPublishers(String publishers) {
-        Publishers = publishers;
-    }
-
-
-
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRangeOfPlayersMin() {
+        return rangeOfPlayersMin;
+    }
+
+    public void setRangeOfPlayersMin(Integer rangeOfPlayersMin) {
+        this.rangeOfPlayersMin = rangeOfPlayersMin;
+    }
+
+    public Integer getRangeOfPlayersMax() {
+        return rangeOfPlayersMax;
+    }
+
+    public void setRangeOfPlayersMax(Integer rangeOfPlayersMax) {
+        this.rangeOfPlayersMax = rangeOfPlayersMax;
+    }
+
+    public Integer getGameTime() {
+        return gameTime;
+    }
+
+    public void setGameTime(Integer gameTime) {
+        this.gameTime = gameTime;
+    }
+
+    public Double getBestRangeOfPlayersMinUser() {
+        return bestRangeOfPlayersMinUser;
+    }
+
+    public void setBestRangeOfPlayersMinUser(Double bestRangeOfPlayersMinUser) {
+        this.bestRangeOfPlayersMinUser = bestRangeOfPlayersMinUser;
+    }
+
+    public Double getBestRangeOfPlayersMaxUser() {
+        return bestRangeOfPlayersMaxUser;
+    }
+
+    public void setBestRangeOfPlayersMaxUser(Double bestRangeOfPlayersMaxUser) {
+        this.bestRangeOfPlayersMaxUser = bestRangeOfPlayersMaxUser;
+    }
+
+    public Double getGameTimeUser() {
+        return gameTimeUser;
+    }
+
+    public void setGameTimeUser(Double gameTimeUser) {
+        this.gameTimeUser = gameTimeUser;
+    }
+
+    public Double getRatingUser() {
+        return ratingUser;
+    }
+
+    public void setRatingUser(Double ratingUser) {
+        this.ratingUser = ratingUser;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getWeightGameUser() {
+        return weightGameUser;
+    }
+
+    public void setWeightGameUser(Double weightGameUser) {
+        this.weightGameUser = weightGameUser;
+    }
+
+    public Integer getAgePlayer() {
+        return agePlayer;
+    }
+
+    public void setAgePlayer(Integer agePlayer) {
+        this.agePlayer = agePlayer;
+    }
+
+    public Double getAgePlayerUSer() {
+        return agePlayerUSer;
+    }
+
+    public void setAgePlayerUSer(Double agePlayerUSer) {
+        this.agePlayerUSer = agePlayerUSer;
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public String getGameAvatar() {
+        return gameAvatar;
+    }
+
+    public void setGameAvatar(String gameAvatar) {
+        this.gameAvatar = gameAvatar;
+    }
+
+    public String getAuthorsGame() {
+        return authorsGame;
+    }
+
+    public void setAuthorsGame(String authorsGame) {
+        this.authorsGame = authorsGame;
+    }
+
+    public String getArtists() {
+        return artists;
+    }
+
+    public void setArtists(String artists) {
+        this.artists = artists;
+    }
+
+    public String getPublishers() {
+        return publishers;
+    }
+
+    public void setPublishers(String publishers) {
+        this.publishers = publishers;
+    }
+
+    public Integer getCountComment() {
+        return countComment;
+    }
+
+    public void setCountComment(Integer countComment) {
+        this.countComment = countComment;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 }
