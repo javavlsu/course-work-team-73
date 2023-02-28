@@ -1,5 +1,7 @@
 package BoardMeet.Backend.Service.Impl;
 
+import BoardMeet.Backend.Model.BoardGame;
+import BoardMeet.Backend.Model.Meet;
 import BoardMeet.Backend.Model.User;
 import BoardMeet.Backend.Repository.UserRepository;
 import BoardMeet.Backend.Service.UserService;
@@ -52,7 +54,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
-        userRepository.deleteById(id);
+    public boolean delete(Long Id) {
+        userRepository.deleteById(Id);
+        return true;
     }
+
+    @Override
+    public List<Meet> getCreatedMeet(Long Id) {
+        return null;
+    }
+
+    @Override
+    public List<Meet> getJoinedMeet(Long Id) {
+        return null;
+    }
+
+    @Override
+    public List<BoardGame> getCreatedBoardGame(Long Id) {
+        return null;
+    }
+
 }
