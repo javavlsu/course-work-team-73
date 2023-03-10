@@ -28,6 +28,16 @@ public class User extends  BaseEntity{
     @Column
     @ManyToMany
     private List<Role> roles;
+    @OneToMany
+    private List<BoardGame> CreateBoardGames;
+    @ManyToMany
+    private List<Meet> JoinedMeets;
+    @OneToMany
+    private List<Meet> CreatedMeets;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
 
     public String getEmail() {
         return email;
@@ -94,16 +104,7 @@ public class User extends  BaseEntity{
     }
     public User (){}
 
-    @OneToMany
-    private List<BoardGame> CreateBoardGames;
-    @ManyToMany
-    private List<Meet> JoinedMeets;
-    @OneToMany
-    private List<Meet> CreatedMeets;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+
 
 
 
