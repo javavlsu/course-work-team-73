@@ -7,10 +7,7 @@ import java.util.List;
 
 @Entity
 public class BoardGame extends  BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
+
     @Column
     private  String name;
     @Column
@@ -50,15 +47,6 @@ public class BoardGame extends  BaseEntity{
     @OneToMany
     private List<Comment> comments;
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
