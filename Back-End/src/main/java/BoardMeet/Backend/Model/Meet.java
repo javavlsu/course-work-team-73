@@ -1,5 +1,8 @@
 package BoardMeet.Backend.Model;
 
+import BoardMeet.Backend.dto.MeetChangeDTO;
+import BoardMeet.Backend.dto.MeetCreateDTO;
+
 import javax.persistence.*;
 
 
@@ -22,9 +25,40 @@ public class Meet extends  BaseEntity{
     @Column
     private Date date;
     @Column
-    private  String state;
+    @Enumerated(EnumType.STRING)
+    private  MeetState state;
     @Column
     private  String location;
+    @Column
+    private  String games;
+    @Column
+    private  String city;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<User> players;
+    private Long authorId;
+    public  Meet(){}
+    public  Meet(MeetCreateDTO meetCreateDTO){
+        this.name = meetCreateDTO.getName();
+        this.peopleCountMax = meetCreateDTO.getPeopleCountMax();
+        this.duration = meetCreateDTO.getDuration();
+        this.link = meetCreateDTO.getLink();
+        this.date = meetCreateDTO.getDate();
+        this.city = meetCreateDTO.getCity();
+        this.authorId = meetCreateDTO.getAuthorId();
+        this.games = meetCreateDTO.getGames();
+        this.location = meetCreateDTO.getLocation();
+    }
+    public void change(MeetChangeDTO meetChangeDTO){
+        this.name = meetChangeDTO.getName();
+        this.location = meetChangeDTO.getLocation();
+        this.games = meetChangeDTO.getGames();
+        this.date = meetChangeDTO.getDate();
+        this.link = meetChangeDTO.getLink();
+        this.peopleCountMax = meetChangeDTO.getPeopleCountMax();
+        this.city = meetChangeDTO.getCity();
+        this.duration = meetChangeDTO.getDuration();
+        this.players = meetChangeDTO.getPlayers();
+    }
 
     public String getName() {
         return name;
@@ -74,11 +108,11 @@ public class Meet extends  BaseEntity{
         this.date = date;
     }
 
-    public String getState() {
+    public MeetState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(MeetState state) {
         this.state = state;
     }
 
@@ -114,25 +148,11 @@ public class Meet extends  BaseEntity{
         this.players = players;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
-
-    @Column
-    private  String city;
-    @Column
-    private  String games;
-    @ManyToMany
-    private List<User> players;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
-
-
-
-
 }

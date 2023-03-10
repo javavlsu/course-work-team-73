@@ -1,6 +1,7 @@
 package BoardMeet.Backend.Service;
 
-import BoardMeet.Backend.Model.BoardGame;
+import BoardMeet.Backend.Exception.NotFoundMeetException;
+import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Model.Meet;
 import BoardMeet.Backend.dto.MeetChangeDTO;
 import BoardMeet.Backend.dto.MeetCreateDTO;
@@ -11,11 +12,12 @@ public interface MeetService {
     List<Meet> getAll();
     Meet get(Long Id);
     Meet create(MeetCreateDTO meet);
-    Meet change(MeetChangeDTO meet);
-    boolean delete(Long Id);
-    boolean exit(Long meetId,Long userId);
-    boolean lock(Long Id);
-    boolean open(Long Id);
+    Meet change(MeetChangeDTO meet) throws NotFoundMeetException;
+    void delete(Long Id)  throws  NotFoundMeetException;
+    void exit(Long meetId, Long userId) throws NotFoundMeetException;
+    void join(Long meetId, Long userId) throws NotFoundMeetException, NotFoundUserException;
+    void lock(Long Id) throws NotFoundMeetException;
+    void open(Long Id) throws NotFoundMeetException;
     List<Meet> search(String searchVal);
 
 
