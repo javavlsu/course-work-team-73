@@ -5,13 +5,13 @@ import BoardMeet.Backend.Model.Role;
 import java.util.List;
 
 public class UserRegisterDTO {
-    public String email;
-    public String username;
-    public String name;
-    public List<Role> roles;
-    public  String password;
-    public String city;
-    public String aboutMe;
+    private String email;
+    private String username;
+    private String name;
+    private List<Role> roles;
+    private String password;
+    private String city;
+    private String aboutMe;
 
     public String getEmail() {
         return email;
