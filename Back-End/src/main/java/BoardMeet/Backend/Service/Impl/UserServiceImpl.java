@@ -1,25 +1,34 @@
 package BoardMeet.Backend.Service.Impl;
 
+import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Model.Meet;
 import BoardMeet.Backend.Model.User;
 import BoardMeet.Backend.Repository.UserRepository;
+import BoardMeet.Backend.Service.FileService;
 import BoardMeet.Backend.Service.UserService;
 import BoardMeet.Backend.dto.UserRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private  final UserRepository userRepository;
+
+    private  final FileService fileService;
     private  final  BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    public UserServiceImpl(@Lazy UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(@Lazy UserRepository userRepository, FileService fileService, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.fileService = fileService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,6 +39,17 @@ public class UserServiceImpl implements UserService {
         User user = new User(userDTO);
         User registeredUser = userRepository.save(user);
         return registeredUser;
+    }
+
+    @Override
+    public String uploadAvatar(MultipartFile avatar, Long userId ) throws IOException, NotFoundUserException {
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null ){
+            throw  new NotFoundUserException("User by id : " + userId + " Not Found");
+        }
+        user.setAvatarUrl(fileService.uploadAvatar(avatar));
+        userRepository.save(user);
+        return user.getAvatarUrl();
     }
 
     @Override
@@ -45,33 +65,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long Id) {
-        User result = userRepository.findById(Id).orElse(null);
-        if(result == null){
-            return  null;
+    public User get(Long Id) throws NotFoundUserException{
+        User user = userRepository.findById(Id).orElse(null);
+        if(user == null){
+            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
         }
-        return result;
+        return user;
     }
 
     @Override
-    public boolean delete(Long Id) {
-        userRepository.deleteById(Id);
-        return true;
+    public void delete(Long Id) throws NotFoundUserException{
+        User user = userRepository.findById(Id).orElse(null);
+        if(user == null){
+            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
+        }
+        userRepository.delete(user);
     }
 
     @Override
-    public List<Meet> getCreatedMeet(Long Id) {
-        return null;
+    public Set<Meet> getCreatedMeet(Long Id) throws NotFoundUserException{
+        User user = userRepository.findById(Id).orElse(null);
+        if(user == null){
+            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
+        }
+        return user.getCreatedMeets();
     }
 
     @Override
-    public List<Meet> getJoinedMeet(Long Id) {
-        return null;
+    public Set<Meet> getJoinedMeet(Long Id) throws NotFoundUserException{
+        User user = userRepository.findById(Id).orElse(null);
+        if(user == null){
+            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
+        }
+        return user.getJoinedMeets();
     }
-
     @Override
-    public List<BoardGame> getCreatedBoardGame(Long Id) {
-        return null;
+    public Set<BoardGame> getCreatedBoardGame(Long Id) throws NotFoundUserException{
+        User user = userRepository.findById(Id).orElse(null);
+        if(user == null){
+            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
+        }
+        return user.getCreateBoardGames();
     }
-
 }
