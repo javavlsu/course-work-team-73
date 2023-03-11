@@ -2,13 +2,21 @@ package BoardMeet.Backend.Model;
 
 import BoardMeet.Backend.dto.MeetChangeDTO;
 import BoardMeet.Backend.dto.MeetCreateDTO;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 public class Meet extends  BaseEntity{
 
@@ -33,9 +41,19 @@ public class Meet extends  BaseEntity{
     private  String games;
     @Column
     private  String city;
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<User> players;
+
+//    @ManyToOne
+//    @JoinColumn(name = "author_id")
+//    private  User author;
+    @Column(name = "author_id")
     private Long authorId;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "meet_user_players",
+            joinColumns = @JoinColumn(name = "meet_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> players;
+
     public  Meet(){}
     public  Meet(MeetCreateDTO meetCreateDTO){
         this.name = meetCreateDTO.getName();
@@ -140,11 +158,11 @@ public class Meet extends  BaseEntity{
         this.games = games;
     }
 
-    public List<User> getPlayers() {
+    public Set<User> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<User> players) {
+    public void setPlayers(Set<User> players) {
         this.players = players;
     }
 

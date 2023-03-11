@@ -5,6 +5,7 @@ import BoardMeet.Backend.Model.User;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class MeetChangeDTO implements Serializable {
     private  Long Id;
@@ -16,7 +17,7 @@ public class MeetChangeDTO implements Serializable {
     private String location;
     private String city;
     private String games;
-    private List<User> players;
+    private Set<User> players;
 
     public Long getId() {
         return Id;
@@ -90,11 +91,11 @@ public class MeetChangeDTO implements Serializable {
         this.games = games;
     }
 
-    public List<User> getPlayers() {
+    public Set<User> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<User> players) {
+    public void setPlayers(Set<User> players) {
         this.players = players;
     }
 }

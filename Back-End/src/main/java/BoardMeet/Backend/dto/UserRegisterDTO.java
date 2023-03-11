@@ -3,12 +3,13 @@ package BoardMeet.Backend.dto;
 import BoardMeet.Backend.Model.Role;
 
 import java.util.List;
+import java.util.Set;
 
 public class UserRegisterDTO {
     private String email;
     private String username;
     private String name;
-    private List<Role> roles;
+    private Set<Role> roles;
     private String password;
     private String city;
     private String aboutMe;
@@ -37,11 +38,11 @@ public class UserRegisterDTO {
         this.name = name;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

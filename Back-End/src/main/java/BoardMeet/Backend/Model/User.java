@@ -1,12 +1,16 @@
 package BoardMeet.Backend.Model;
 
 import BoardMeet.Backend.dto.UserRegisterDTO;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name="users")
 public class User extends  BaseEntity{
@@ -27,17 +31,16 @@ public class User extends  BaseEntity{
     private  String aboutMe;
     @Column
     @ManyToMany
-    private List<Role> roles;
-    @OneToMany
-    private List<BoardGame> CreateBoardGames;
-    @ManyToMany
-    private List<Meet> JoinedMeets;
-    @OneToMany
-    private List<Meet> CreatedMeets;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private Set<Role> roles;
+    @OneToMany(mappedBy = "author")
+    private Set<BoardGame> CreateBoardGames;
+
+
+    @ManyToMany(mappedBy = "players")
+    @JsonIgnore
+    private Set<Meet> JoinedMeets;
+    @OneToMany(mappedBy = "authorId")
+    private Set<Meet> CreatedMeets;
 
     public String getEmail() {
         return email;
@@ -90,8 +93,6 @@ public class User extends  BaseEntity{
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
     }
-
-
     public User (UserRegisterDTO userDTO){
         email= userDTO.getEmail();
         password = userDTO.getPassword();
@@ -103,51 +104,38 @@ public class User extends  BaseEntity{
         super.setStatus(Status.ACTIVE);
     }
     public User (){}
-
-
-
-
-
     public void setUsername(String username) {
         username = username;
     }
-
-
-
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    public List  getCreateBoardGames() {
+    public Set<BoardGame> getCreateBoardGames() {
         return CreateBoardGames;
     }
 
-    public void setCreateBoardGames(List createBoardGames) {
+    public void setCreateBoardGames(Set<BoardGame> createBoardGames) {
         CreateBoardGames = createBoardGames;
     }
 
-    public List getJoinedMeets() {
+    public Set<Meet> getJoinedMeets() {
         return JoinedMeets;
     }
 
-    public void setJoinedMeets(List joinedMeets) {
+    public void setJoinedMeets(Set<Meet> joinedMeets) {
         JoinedMeets = joinedMeets;
     }
 
-
-
-    public List getCreatedMeets() {
+    public Set<Meet> getCreatedMeets() {
         return CreatedMeets;
     }
-
-    public void setCreatedMeets(List createdMeets) {
+    public void setCreatedMeets(Set<Meet>createdMeets) {
         CreatedMeets = createdMeets;
     }
-
-
-
 }
+

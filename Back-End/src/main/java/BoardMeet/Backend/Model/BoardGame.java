@@ -1,10 +1,17 @@
 package BoardMeet.Backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 public class BoardGame extends  BaseEntity{
 
@@ -44,8 +51,11 @@ public class BoardGame extends  BaseEntity{
     private String publishers;
     @Column
     private  Integer countComment;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
     @OneToMany
-    private List<Comment> comments;
+    private Set<Comment> comments;
 
 
     public String getName() {
@@ -192,11 +202,11 @@ public class BoardGame extends  BaseEntity{
         this.countComment = countComment;
     }
 
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
@@ -208,7 +218,5 @@ public class BoardGame extends  BaseEntity{
         this.author = author;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+
 }
