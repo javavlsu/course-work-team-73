@@ -56,7 +56,7 @@ public class MeetsController {
         }
         return  new ResponseEntity<>( HttpStatus.OK);
     }
-    @PutMapping("exit/{meetId}/user/{userId}")
+    @PutMapping("{meetId}/exitUser/{userId}")
     public  ResponseEntity<?> exit(@PathVariable Long meetId,@PathVariable Long userId){
         try {
             meetService.exit(meetId,userId);
@@ -65,7 +65,7 @@ public class MeetsController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("join/{meetId}/user/{userId}")
+    @PutMapping("{meetId}/joinUser/{userId}")
     public  ResponseEntity<?> Join(@PathVariable Long meetId,@PathVariable Long userId){
         try {
             meetService.join(meetId,userId);
@@ -76,19 +76,19 @@ public class MeetsController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("lock/{meetId}")
-    public  ResponseEntity<?> Lock(@PathVariable Long meetId){
+    @PutMapping("{Id}/lock")
+    public  ResponseEntity<?> Lock(@PathVariable Long Id){
         try {
-            meetService.lock(meetId);
+            meetService.lock(Id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (NotFoundMeetException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("open/{meetId}")
-    public  ResponseEntity<?> Open(@PathVariable Long meetId){
+    @PutMapping("{Id}/open")
+    public  ResponseEntity<?> Open(@PathVariable Long Id){
         try {
-            meetService.open(meetId);
+            meetService.open(Id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (NotFoundMeetException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
@@ -98,6 +98,5 @@ public class MeetsController {
     public  ResponseEntity<?> Search(@PathVariable String searchVal){
         List<Meet> meets = meetService.search(searchVal);
         return  new ResponseEntity<>(meets,HttpStatus.OK);
-
     }
 }
