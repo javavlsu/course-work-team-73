@@ -3,19 +3,19 @@ package BoardMeet.Backend.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardGameCreateDTO {
-    public String Name;
-    public int RangeOfPlayersMin;
-    public int RangeOfPlayersMax;
-    public int GameTime;
-    public String Description;
-    public int AgePlayer;
-    public String AuthorsGame;
-    public String Genre;
-    public String Artists;
-    public String Publishers;
-    public int AuthorId;
-    public MultipartFile rule;
-    public MultipartFile avatarGame;
+    private String Name;
+    private int RangeOfPlayersMin;
+    private int RangeOfPlayersMax;
+    private int GameTime;
+    private String Description;
+    private int AgePlayer;
+    private String AuthorsGame;
+    private String Genre;
+    private String Artists;
+    private String Publishers;
+    private Long AuthorId;
+    private MultipartFile rule;
+    private MultipartFile avatarGame;
 
     public String getName() {
         return Name;
@@ -97,11 +97,11 @@ public class BoardGameCreateDTO {
         Publishers = publishers;
     }
 
-    public int getAuthorId() {
+    public Long getAuthorId() {
         return AuthorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(Long authorId) {
         AuthorId = authorId;
     }
 

@@ -2,94 +2,94 @@ package BoardMeet.Backend.dto;
 import java.sql.Date;
 
 public class CommentCreateDTO {
-    public String Body;
-    public Date Date;
-    public int Rating;
-    public int WeightGame;
-    public int GameTime;
-    public int BestPlayerMin;
-    public int BestPlayerMax;
-    public int AgePlayer;
-    public int AuthorId;
-    public int GameId;
+    private String body;
+    private Date date;
+    private int rating;
+    private int weightGame;
+    private int gameTime;
+    private int bestPlayerMin;
+    private int bestPlayerMax;
+    private int agePlayer;
+    private Long authorId;
+    private Long gameId;
 
     public String getBody() {
-        return Body;
+        return body;
     }
 
     public void setBody(String body) {
-        Body = body;
+        this.body = body;
     }
 
     public java.sql.Date getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(java.sql.Date date) {
-        Date = date;
+        this.date = date;
     }
 
     public int getRating() {
-        return Rating;
+        return rating;
     }
 
     public void setRating(int rating) {
-        Rating = rating;
+        this.rating = rating;
     }
 
     public int getWeightGame() {
-        return WeightGame;
+        return weightGame;
     }
 
     public void setWeightGame(int weightGame) {
-        WeightGame = weightGame;
+        this.weightGame = weightGame;
     }
 
     public int getGameTime() {
-        return GameTime;
+        return gameTime;
     }
 
     public void setGameTime(int gameTime) {
-        GameTime = gameTime;
+        this.gameTime = gameTime;
     }
 
     public int getBestPlayerMin() {
-        return BestPlayerMin;
+        return bestPlayerMin;
     }
 
     public void setBestPlayerMin(int bestPlayerMin) {
-        BestPlayerMin = bestPlayerMin;
+        this.bestPlayerMin = bestPlayerMin;
     }
 
     public int getBestPlayerMax() {
-        return BestPlayerMax;
+        return bestPlayerMax;
     }
 
     public void setBestPlayerMax(int bestPlayerMax) {
-        BestPlayerMax = bestPlayerMax;
+        this.bestPlayerMax = bestPlayerMax;
     }
 
     public int getAgePlayer() {
-        return AgePlayer;
+        return agePlayer;
     }
 
     public void setAgePlayer(int agePlayer) {
-        AgePlayer = agePlayer;
+        this.agePlayer = agePlayer;
     }
 
-    public int getAuthorId() {
-        return AuthorId;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthorId(int authorId) {
-        AuthorId = authorId;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
-    public int getGameId() {
-        return GameId;
+    public Long getGameId() {
+        return gameId;
     }
 
-    public void setGameId(int gameId) {
-        GameId = gameId;
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 }
