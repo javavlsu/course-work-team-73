@@ -1,5 +1,7 @@
 package BoardMeet.Backend.Model;
 
+import BoardMeet.Backend.dto.BoardGameChangeDTO;
+import BoardMeet.Backend.dto.BoardGameCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -23,6 +25,10 @@ public class BoardGame extends  BaseEntity{
     private  Integer rangeOfPlayersMax;
     @Column
     private Integer gameTime;
+
+    @Column
+    private  String genre;
+
     @Column
     private  Double bestRangeOfPlayersMinUser;
     @Column
@@ -55,8 +61,33 @@ public class BoardGame extends  BaseEntity{
     private Long authorId;
     @OneToMany(mappedBy = "gameId",fetch = FetchType.EAGER)
     private Set<Comment> comments;
-
-
+    public  BoardGame(){}
+    public  BoardGame (BoardGameCreateDTO boardGame){
+        this.agePlayer = boardGame.getAgePlayer();
+        this.gameTime = boardGame.getGameTime();
+        this.authorsGame = boardGame.getAuthorsGame();
+        this.authorId = boardGame.getAuthorId();
+        this.artists = boardGame.getArtists();
+        this.description = boardGame.getDescription();
+        this.name = boardGame.getName();
+        this.genre = boardGame.getGenre();
+        this.rangeOfPlayersMin = boardGame.getRangeOfPlayersMin();
+        this.rangeOfPlayersMax = boardGame.getRangeOfPlayersMax();
+        this.publishers = boardGame.getPublishers();
+        this.countComment = 0;
+    }
+    public  void change(BoardGameChangeDTO boardGame){
+        this.agePlayer = boardGame.getAgePlayer();
+        this.gameTime = boardGame.getGameTime();
+        this.authorsGame = boardGame.getAuthorsGame();
+        this.artists = boardGame.getArtists();
+        this.description = boardGame.getDescription();
+        this.name = boardGame.getName();
+        this.genre = boardGame.getGenre();
+        this.rangeOfPlayersMin = boardGame.getRangeOfPlayersMin();
+        this.rangeOfPlayersMax = boardGame.getRangeOfPlayersMax();
+        this.publishers = boardGame.getPublishers();
+    }
     public String getName() {
         return name;
     }
@@ -76,7 +107,6 @@ public class BoardGame extends  BaseEntity{
     public Integer getRangeOfPlayersMax() {
         return rangeOfPlayersMax;
     }
-
     public void setRangeOfPlayersMax(Integer rangeOfPlayersMax) {
         this.rangeOfPlayersMax = rangeOfPlayersMax;
     }
@@ -91,6 +121,22 @@ public class BoardGame extends  BaseEntity{
 
     public Double getBestRangeOfPlayersMinUser() {
         return bestRangeOfPlayersMinUser;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
     public void setBestRangeOfPlayersMinUser(Double bestRangeOfPlayersMinUser) {
@@ -209,12 +255,12 @@ public class BoardGame extends  BaseEntity{
         this.comments = comments;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getAuthor() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthor(Long authorId) {
+        this.authorId = authorId;
     }
 
 
