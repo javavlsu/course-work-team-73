@@ -51,10 +51,9 @@ public class BoardGame extends  BaseEntity{
     private String publishers;
     @Column
     private  Integer countComment;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
-    @OneToMany
+    @Column(name = "author_id")
+    private Long authorId;
+    @OneToMany(mappedBy = "gameId",fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
 

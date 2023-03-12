@@ -32,7 +32,7 @@ public class User extends  BaseEntity{
     @Column
     @ManyToMany
     private Set<Role> roles;
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "authorId")
     private Set<BoardGame> CreateBoardGames;
 
 
