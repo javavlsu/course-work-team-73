@@ -1,5 +1,6 @@
 package BoardMeet.Backend.Model;
 
+import BoardMeet.Backend.dto.CommentCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -25,12 +26,25 @@ public class Comment extends  BaseEntity{
     private  Integer bestPlayerMax;
     @Column
     private  Integer agePlayer;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private BoardGame game;
+
+    @Column(name = "author_id")
+    private Long authorId;
+
+    @Column(name = "game_id")
+    private Long gameId;
+
+    public  Comment (){}
+    public  Comment (CommentCreateDTO comment){
+        this.body = comment.getBody();
+        this.rating = comment.getRating();
+        this.weightGame = comment.getWeightGame();
+        this.gameTime = comment.getGameTime();
+        this.bestPlayerMax = comment.getBestPlayerMax();
+        this.bestPlayerMin = comment.getBestPlayerMin();
+        this.agePlayer = comment.getAgePlayer();
+        this.authorId = comment.getAuthorId();
+        this.gameId = comment.getGameId();
+    }
 
     public String getBody() {
         return body;
@@ -88,19 +102,19 @@ public class Comment extends  BaseEntity{
         this.agePlayer = agePlayer;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getAuthor() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthor(Long authorId) {
+        this.authorId = authorId;
     }
 
-    public BoardGame getGame() {
-        return game;
+    public Long getGame() {
+        return gameId;
     }
 
-    public void setGame(BoardGame game) {
-        this.game = game;
+    public void setGame(Long gameId) {
+        this.gameId = gameId;
     }
 }
