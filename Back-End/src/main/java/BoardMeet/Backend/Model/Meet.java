@@ -41,10 +41,6 @@ public class Meet extends  BaseEntity{
     private  String games;
     @Column
     private  String city;
-
-//    @ManyToOne
-//    @JoinColumn(name = "author_id")
-//    private  User author;
     @Column(name = "author_id")
     private Long authorId;
     @ManyToMany(fetch = FetchType.LAZY)
