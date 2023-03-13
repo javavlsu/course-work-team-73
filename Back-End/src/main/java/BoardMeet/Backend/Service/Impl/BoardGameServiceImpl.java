@@ -27,19 +27,13 @@ public class BoardGameServiceImpl implements BoardGameService {
 
     @Override
     public BoardGame get(Long Id) throws NotFoundBoardGameException {
-        BoardGame boardGame = boardGameRepository.findById(Id).orElse(null);
-        if(boardGame == null){
-            throw new NotFoundBoardGameException("Board game by id : " + Id +" Not Found");
-        }
+        BoardGame boardGame = boardGameRepository.findById(Id).orElseThrow(()->new NotFoundBoardGameException("Board game by id : " + Id +" Not Found"));
         return boardGame;
     }
 
     @Override
     public BoardGame change(BoardGameChangeDTO boardGame) throws NotFoundBoardGameException {
-        BoardGame boardGameChanging = boardGameRepository.findById(boardGame.getId()).orElse(null);
-        if(boardGameChanging == null){
-            throw new NotFoundBoardGameException("Board game by id : " + boardGame.getId() +" Not Found");
-        }
+        BoardGame boardGameChanging = boardGameRepository.findById(boardGame.getId()).orElseThrow(()-> new NotFoundBoardGameException("Board game by id : " + boardGame.getId() +" Not Found"));
         boardGameChanging.change(boardGame);
         boardGameRepository.save(boardGameChanging);
         return  boardGameChanging;
@@ -53,11 +47,8 @@ public class BoardGameServiceImpl implements BoardGameService {
     }
 
     @Override
-    public void delete(Long Id) throws NotFoundBoardGameException {
-        BoardGame boardGameDeleting = boardGameRepository.findById(Id).orElse(null);
-        if(boardGameDeleting == null){
-            throw  new NotFoundBoardGameException("Board game by id : " + Id +" Not Found");
-        }
+    public void delete(Long id) throws NotFoundBoardGameException {
+        BoardGame boardGameDeleting = boardGameRepository.findById(id).orElseThrow(()->new NotFoundBoardGameException("Board game by id : " + id +" Not Found"));
         boardGameRepository.delete(boardGameDeleting);
     }
 

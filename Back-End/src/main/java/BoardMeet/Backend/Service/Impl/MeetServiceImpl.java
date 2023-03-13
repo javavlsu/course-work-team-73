@@ -35,8 +35,8 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public Meet get(Long Id) {
-        return meetRepository.findById(Id).orElse(null);
+    public Meet get(Long id) throws  NotFoundMeetException{
+        return meetRepository.findById(id).orElseThrow(()->new NotFoundMeetException("Not Found meet this id: " + id));
     }
 
     @Override
@@ -46,49 +46,35 @@ public class MeetServiceImpl implements MeetService {
 
     @Override
     public Meet change(MeetChangeDTO meet) throws NotFoundMeetException  {
-        Meet meetLast = meetRepository.findById(meet.getId()).orElse(null);
-        if(meetLast == null)
-            throw  new NotFoundMeetException("Not Found changing meet this id: " + meet.getId());
+        Meet meetLast = meetRepository.findById(meet.getId()).orElseThrow(()->new NotFoundMeetException("Not Found changing meet this id: " + meet.getId()));
         meetLast.change(meet);
         meetRepository.save(meetLast);
         return meetLast;
     }
 
     @Override
-    public void delete(Long Id)  throws  NotFoundMeetException{
-        Meet meet = meetRepository.findById(Id).orElse(null);
-        if (meet == null){
-            throw  new NotFoundMeetException("Not Found deleting meet this id: " + Id );
-        }
+    public void delete(Long id)  throws  NotFoundMeetException{
+        Meet meet = meetRepository.findById(id).orElseThrow(()->new NotFoundMeetException("Not Found deleting meet this id: " + id ));
         meetRepository.delete(meet);
     }
 
     @Override
     public void exit(Long meetId, Long userId) throws  NotFoundMeetException {
-        Meet meet = meetRepository.findById(meetId).orElse(null);
-        if (meet == null)
-            throw  new NotFoundMeetException("Not Found exited meet this id: " + meetId);
+        Meet meet = meetRepository.findById(meetId).orElseThrow(()->new NotFoundMeetException("Not Found exited meet this id: " + meetId));
         meet.getPlayers().removeIf(user -> (user.getId() == userId) );
         meetRepository.save(meet);
     }
     @Override
     public void join(Long meetId, Long userId) throws NotFoundMeetException, NotFoundUserException {
-        Meet meet = meetRepository.findById(meetId).orElse(null);
-        if (meet == null)
-            throw  new NotFoundMeetException("Not Found joining meet this id: " + meetId);
-
-        User user =  userRepository.findById(userId).orElse(null);
-        if (user == null)
-            throw  new NotFoundMeetException("Not Found joining user this id: " + userId);
+        Meet meet = meetRepository.findById(meetId).orElseThrow(()->new NotFoundMeetException("Not Found joining meet this id: " + meetId));
+        User user =  userRepository.findById(userId).orElseThrow(()->new NotFoundMeetException("Not Found joining user this id: " + userId));
         meet.getPlayers().add(user);
         meetRepository.save(meet);
     }
 
     @Override
-    public void lock(Long Id) throws  NotFoundMeetException {
-        Meet meetLocking = meetRepository.findById(Id).orElse(null);
-        if (meetLocking == null)
-            throw new NotFoundMeetException("Not Found locking meet this id: " + Id);
+    public void lock(Long id) throws  NotFoundMeetException {
+        Meet meetLocking = meetRepository.findById(id).orElseThrow(()->new NotFoundMeetException("Not Found locking meet this id: " + id));
         if(meetLocking.getState() == MeetState.STARTOPEN) {
             meetLocking.setState(MeetState.STARTLOCK);
             meetRepository.save(meetLocking);
@@ -96,11 +82,8 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public void open(Long Id) throws  NotFoundMeetException {
-        Meet meetLocking = meetRepository.findById(Id).orElse(null);
-        if (meetLocking == null)
-            throw new NotFoundMeetException("Not Found locking meet this id: " + Id);
-
+    public void open(Long id) throws  NotFoundMeetException {
+        Meet meetLocking = meetRepository.findById(id).orElseThrow(()-> new NotFoundMeetException("Not Found locking meet this id: " + id));
         if(meetLocking.getState() == MeetState.STARTLOCK){
             meetLocking.setState(MeetState.STARTOPEN);
             meetRepository.save(meetLocking);

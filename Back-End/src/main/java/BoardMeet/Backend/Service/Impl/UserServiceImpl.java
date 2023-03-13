@@ -43,10 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String uploadAvatar(MultipartFile avatar, Long userId ) throws IOException, NotFoundUserException {
-        User user = userRepository.findById(userId).orElse(null);
-        if(user == null ){
-            throw  new NotFoundUserException("User by id : " + userId + " Not Found");
-        }
+        User user = userRepository.findById(userId).orElseThrow(()->new NotFoundUserException("User by id : " + userId + " Not Found"));
         user.setAvatarUrl(fileService.uploadAvatar(avatar));
         userRepository.save(user);
         return user.getAvatarUrl();
@@ -65,46 +62,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(Long Id) throws NotFoundUserException{
-        User user = userRepository.findById(Id).orElse(null);
-        if(user == null){
-            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
-        }
+    public User get(Long id) throws NotFoundUserException{
+        User user = userRepository.findById(id).orElseThrow(()->new NotFoundUserException("User by id : " + id + " Not Found"));
         return user;
     }
 
     @Override
-    public void delete(Long Id) throws NotFoundUserException{
-        User user = userRepository.findById(Id).orElse(null);
-        if(user == null){
-            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
-        }
+    public void delete(Long id) throws NotFoundUserException{
+        User user = userRepository.findById(id).orElseThrow(()->new NotFoundUserException("User by id : " + id + " Not Found"));
         userRepository.delete(user);
     }
 
     @Override
-    public Set<Meet> getCreatedMeet(Long Id) throws NotFoundUserException{
-        User user = userRepository.findById(Id).orElse(null);
-        if(user == null){
-            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
-        }
+    public Set<Meet> getCreatedMeet(Long id) throws NotFoundUserException{
+        User user = userRepository.findById(id).orElseThrow(()->new NotFoundUserException("User by id : " + id + " Not Found"));
         return user.getCreatedMeets();
     }
 
     @Override
-    public Set<Meet> getJoinedMeet(Long Id) throws NotFoundUserException{
-        User user = userRepository.findById(Id).orElse(null);
-        if(user == null){
-            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
-        }
+    public Set<Meet> getJoinedMeet(Long id) throws NotFoundUserException{
+        User user = userRepository.findById(id).orElseThrow(()->new NotFoundUserException("User by id : " + id + " Not Found"));
         return user.getJoinedMeets();
     }
     @Override
-    public Set<BoardGame> getCreatedBoardGame(Long Id) throws NotFoundUserException{
-        User user = userRepository.findById(Id).orElse(null);
-        if(user == null){
-            throw new NotFoundUserException("User by Id : " + Id + " Not Found");
-        }
+    public Set<BoardGame> getCreatedBoardGame(Long id) throws NotFoundUserException{
+        User user = userRepository.findById(id).orElseThrow(()->new NotFoundUserException("User by id : " + id + " Not Found"));
         return user.getCreateBoardGames();
     }
 }

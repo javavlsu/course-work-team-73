@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -61,6 +62,8 @@ public class Meet extends  BaseEntity{
         this.authorId = meetCreateDTO.getAuthorId();
         this.games = meetCreateDTO.getGames();
         this.location = meetCreateDTO.getLocation();
+        this.peopleCount = 0;
+        this.state = MeetState.STARTOPEN;
     }
     public void change(MeetChangeDTO meetChangeDTO){
         this.name = meetChangeDTO.getName();
@@ -73,7 +76,33 @@ public class Meet extends  BaseEntity{
         this.duration = meetChangeDTO.getDuration();
         this.players = meetChangeDTO.getPlayers();
     }
+    public void refreshState() {
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendar.MINUTE,duration);
+        if (now.compareTo(calendar.getTime())>0)
+        {
+            state = MeetState.FINISHED;
+        }
+        else if (peopleCount < peopleCountMax && now.compareTo(date)<0)
+        {
+            state = MeetState.RECRUITING;
+        }
+        else if (peopleCount >= peopleCountMax && now.compareTo(date)<0)
+        {
+            state = MeetState.RECRUITINGFULL;
+        }
+        else if (peopleCount < peopleCountMax && now.compareTo(date)> 0&& state != MeetState.STARTLOCK)
+        {
+            state = MeetState.STARTOPEN;
+        }
+        else if (peopleCount >= peopleCountMax && now.compareTo(date)>0)
+        {
+            state = MeetState.STARTFULL;
 
+        }
+    }
     public String getName() {
         return name;
     }

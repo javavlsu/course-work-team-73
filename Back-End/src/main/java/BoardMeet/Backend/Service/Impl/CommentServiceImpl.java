@@ -25,21 +25,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void delete(Long Id) throws  NotFoundCommentException {
-        Comment comment = commentRepository.findById(Id).orElse(null);
-        if(comment == null){
-            throw  new NotFoundCommentException("Comment by id : " + Id +" Not Found");
-        }
+    public void delete(Long id) throws  NotFoundCommentException {
+        Comment comment = commentRepository.findById(id).orElseThrow(()->new NotFoundCommentException("Comment by id : " + id +" Not Found"));
         commentRepository.delete(comment);
 
     }
 
     @Override
-    public Comment get(Long Id) throws NotFoundCommentException {
-        Comment comment = commentRepository.findById(Id).orElse(null);
-        if(comment == null){
-            throw  new NotFoundCommentException("Comment by id : " + Id +" Not Found");
-        }
+    public Comment get(Long id) throws NotFoundCommentException {
+        Comment comment = commentRepository.findById(id).orElseThrow(()->new NotFoundCommentException("Comment by id : " + id +" Not Found"));
         return comment;
     }
 }

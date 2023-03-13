@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MeetService {
     List<Meet> getAll();
-    Meet get(Long Id);
+    Meet get(Long Id) throws  NotFoundMeetException;
     Meet create(MeetCreateDTO meet);
     Meet change(MeetChangeDTO meet) throws NotFoundMeetException;
     void delete(Long Id)  throws  NotFoundMeetException;
