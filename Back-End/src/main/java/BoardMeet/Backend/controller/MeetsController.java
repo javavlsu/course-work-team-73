@@ -28,11 +28,11 @@ public class MeetsController {
     }
     @GetMapping("{Id}")
     public ResponseEntity<?> get(@PathVariable Long Id){
-        Meet meet =  meetService.get(Id);
-        if (meet == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            return new ResponseEntity<>(meetService.get(Id),HttpStatus.OK);
+        }catch (NotFoundMeetException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.OK);
         }
-        return new ResponseEntity<>(meet,HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<?> post(@Valid @RequestBody MeetCreateDTO meetCreating){
