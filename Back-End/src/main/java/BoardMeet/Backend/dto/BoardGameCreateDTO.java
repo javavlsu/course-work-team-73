@@ -3,106 +3,106 @@ package BoardMeet.Backend.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardGameCreateDTO {
-    private String Name;
-    private int RangeOfPlayersMin;
-    private int RangeOfPlayersMax;
-    private int GameTime;
-    private String Description;
-    private int AgePlayer;
-    private String AuthorsGame;
-    private String Genre;
-    private String Artists;
-    private String Publishers;
-    private Long AuthorId;
+    private String name;
+    private int rangeOfPlayersMin;
+    private int rangeOfPlayersMax;
+    private int gameTime;
+    private String description;
+    private int agePlayer;
+    private String authorsGame;
+    private String genre;
+    private String artists;
+    private String publishers;
+    private Long authorId;
     private MultipartFile rule;
     private MultipartFile avatarGame;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public int getRangeOfPlayersMin() {
-        return RangeOfPlayersMin;
+        return rangeOfPlayersMin;
     }
 
     public void setRangeOfPlayersMin(int rangeOfPlayersMin) {
-        RangeOfPlayersMin = rangeOfPlayersMin;
+        rangeOfPlayersMin = rangeOfPlayersMin;
     }
 
     public int getRangeOfPlayersMax() {
-        return RangeOfPlayersMax;
+        return rangeOfPlayersMax;
     }
 
     public void setRangeOfPlayersMax(int rangeOfPlayersMax) {
-        RangeOfPlayersMax = rangeOfPlayersMax;
+        rangeOfPlayersMax = rangeOfPlayersMax;
     }
 
     public int getGameTime() {
-        return GameTime;
+        return gameTime;
     }
 
     public void setGameTime(int gameTime) {
-        GameTime = gameTime;
+        gameTime = gameTime;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 
     public int getAgePlayer() {
-        return AgePlayer;
+        return agePlayer;
     }
 
     public void setAgePlayer(int agePlayer) {
-        AgePlayer = agePlayer;
+        agePlayer = agePlayer;
     }
 
     public String getAuthorsGame() {
-        return AuthorsGame;
+        return authorsGame;
     }
 
     public void setAuthorsGame(String authorsGame) {
-        AuthorsGame = authorsGame;
+        authorsGame = authorsGame;
     }
 
     public String getGenre() {
-        return Genre;
+        return genre;
     }
 
     public void setGenre(String genre) {
-        Genre = genre;
+        genre = genre;
     }
 
     public String getArtists() {
-        return Artists;
+        return artists;
     }
 
     public void setArtists(String artists) {
-        Artists = artists;
+        artists = artists;
     }
 
     public String getPublishers() {
-        return Publishers;
+        return publishers;
     }
 
     public void setPublishers(String publishers) {
-        Publishers = publishers;
+        publishers = publishers;
     }
 
     public Long getAuthorId() {
-        return AuthorId;
+        return authorId;
     }
 
     public void setAuthorId(Long authorId) {
-        AuthorId = authorId;
+        authorId = authorId;
     }
 
     public MultipartFile getRule() {

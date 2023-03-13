@@ -2,68 +2,67 @@ package BoardMeet.Backend.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardGameChangeDTO {
-        private  Long Id;
-        private String Name;
-        private String AuthorsGame;
-        private String Genre;
-        private String Artists;
-
-        private  String Publisher;
-        private int RangeOfPlayersMin;
-        private int RangeOfPlayersMax;
-        private int GameTime;
-        private String Description;
-        private int AgePlayer;
+        private  Long id;
+        private String name;
+        private String authorsGame;
+        private String genre;
+        private String artists;
+        private  String publisher;
+        private int rangeOfPlayersMin;
+        private int rangeOfPlayersMax;
+        private int gameTime;
+        private String description;
+        private int agePlayer;
         private MultipartFile rule;
         private MultipartFile avatarGame;
         public String getName() {
-                return Name;
+                return name;
         }
 
         private String Publishers;
 
         public Long getId() {
-                return Id;
+                return id;
         }
 
         public void setId(Long id) {
-                Id = id;
+                id = id;
         }
 
         public void setName(String name) {
-                Name = name;
+                name = name;
         }
 
         public String getAuthorsGame() {
-                return AuthorsGame;
+                return authorsGame;
         }
 
         public void setAuthorsGame(String authorsGame) {
-                AuthorsGame = authorsGame;
+                authorsGame = authorsGame;
         }
 
         public String getGenre() {
-                return Genre;
+                return genre;
         }
 
         public void setGenre(String genre) {
-                Genre = genre;
+                genre = genre;
         }
 
         public String getArtists() {
-                return Artists;
+                return artists;
         }
 
         public void setArtists(String artists) {
-                Artists = artists;
+                artists = artists;
         }
 
         public String getPublisher() {
-                return Publisher;
+                return publisher;
         }
 
         public void setPublisher(String publisher) {
-                Publisher = publisher;
+                publisher = publisher;
         }
 
         public String getPublishers() {
@@ -75,43 +74,43 @@ public class BoardGameChangeDTO {
         }
 
         public int getRangeOfPlayersMin() {
-                return RangeOfPlayersMin;
+                return rangeOfPlayersMin;
         }
 
         public void setRangeOfPlayersMin(int rangeOfPlayersMin) {
-                RangeOfPlayersMin = rangeOfPlayersMin;
+                rangeOfPlayersMin = rangeOfPlayersMin;
         }
 
         public int getRangeOfPlayersMax() {
-                return RangeOfPlayersMax;
+                return rangeOfPlayersMax;
         }
 
         public void setRangeOfPlayersMax(int rangeOfPlayersMax) {
-                RangeOfPlayersMax = rangeOfPlayersMax;
+                this.rangeOfPlayersMax = rangeOfPlayersMax;
         }
 
         public int getGameTime() {
-                return GameTime;
+                return gameTime;
         }
 
         public void setGameTime(int gameTime) {
-                GameTime = gameTime;
+                this.gameTime = gameTime;
         }
 
         public String getDescription() {
-                return Description;
+                return description;
         }
 
         public void setDescription(String description) {
-                Description = description;
+                this.description = description;
         }
 
         public int getAgePlayer() {
-                return AgePlayer;
+                return agePlayer;
         }
 
         public void setAgePlayer(int agePlayer) {
-                AgePlayer = agePlayer;
+                this.agePlayer = agePlayer;
         }
 
         public MultipartFile getRule() {
