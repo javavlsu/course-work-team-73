@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class MeetsController {
         return new ResponseEntity<>(meet,HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<?> post(@RequestBody MeetCreateDTO meetCreating){
+    public ResponseEntity<?> post(@Valid @RequestBody MeetCreateDTO meetCreating){
         return new ResponseEntity<>(meetService.create(meetCreating), HttpStatus.OK);
     }
 

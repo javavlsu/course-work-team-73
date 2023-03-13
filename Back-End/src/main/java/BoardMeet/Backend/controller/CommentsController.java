@@ -25,18 +25,18 @@ public class CommentsController {
         return  new ResponseEntity(commentService.create(comment), HttpStatus.OK);
 
     }
-    @GetMapping("{Id}")
-    public  ResponseEntity<?> get(@PathVariable Long Id){
+    @GetMapping("{id}")
+    public  ResponseEntity<?> get(@PathVariable Long id){
         try {
-            return  new ResponseEntity( commentService.get(Id),HttpStatus.OK);
+            return  new ResponseEntity( commentService.get(id),HttpStatus.OK);
         }catch (NotFoundCommentException e){
             return  new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping("{Id}")
-    public  ResponseEntity<?> delete(@PathVariable Long Id){
+    @DeleteMapping("{id}")
+    public  ResponseEntity<?> delete(@PathVariable Long id){
         try {
-            commentService.delete(Id);
+            commentService.delete(id);
             return  new ResponseEntity(HttpStatus.OK);
         }catch (NotFoundCommentException e){
             return  new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);

@@ -25,10 +25,10 @@ public class BoardGamesController {
     public ResponseEntity<?> getAll(){
         return  new ResponseEntity<>(boardGameService.getAll(), HttpStatus.OK);
     }
-    @GetMapping("{Id}")
-    public ResponseEntity<?> get(@PathVariable Long Id){
+    @GetMapping("{id}")
+    public ResponseEntity<?> get(@PathVariable Long id){
         try {
-            return new  ResponseEntity(boardGameService.get(Id),HttpStatus.OK);
+            return new  ResponseEntity(boardGameService.get(id),HttpStatus.OK);
         }catch (NotFoundBoardGameException e ){
             return  new ResponseEntity(e.getMessage(),HttpStatus.OK);
         }
@@ -45,10 +45,10 @@ public class BoardGamesController {
             return  new ResponseEntity(e.getMessage(),HttpStatus.OK);
         }
     }
-    @DeleteMapping("{Id}")
-    public  ResponseEntity<?> delete(@PathVariable Long Id){
+    @DeleteMapping("{id}")
+    public  ResponseEntity<?> delete(@PathVariable Long id){
         try {
-            boardGameService.delete(Id);
+            boardGameService.delete(id);
             return new  ResponseEntity(HttpStatus.OK);
         }catch (NotFoundBoardGameException e ){
             return  new ResponseEntity(e.getMessage(),HttpStatus.OK);
