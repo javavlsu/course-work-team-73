@@ -1,17 +1,33 @@
 package BoardMeet.Backend.dto;
 
+import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.sql.Date;
 
 public class MeetCreateDTO implements Serializable {
+    @NotNull
+    @Length( min = 2)
     private String name;
+    @NotNull
+    @Min(1)
     private int peopleCountMax;
+    @NotNull
+    @Min(1)
     private int duration;
     private String link;
+    @NotNull
     private Date date;
+    @NotNull
     private String location;
+    @NotNull
+    @Length(min = 2)
     private String city;
+    @NotNull
     private String games;
+    @NotNull
     private Long authorId;
 
     public String getName() {

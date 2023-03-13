@@ -25,7 +25,7 @@ public class UsersController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody UserRegisterDTO userDTO){
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDTO userDTO){
         return new ResponseEntity<>(userService.register(userDTO), HttpStatus.OK);
     }
     @PostMapping("{id}/uploadAvatar")
