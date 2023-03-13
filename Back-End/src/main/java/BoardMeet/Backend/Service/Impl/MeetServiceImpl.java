@@ -12,6 +12,7 @@ import BoardMeet.Backend.dto.MeetChangeDTO;
 import BoardMeet.Backend.dto.MeetCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -92,5 +93,13 @@ public class MeetServiceImpl implements MeetService {
     @Override
     public List<Meet> search(String searchVal) {
         return meetRepository.findByNameContains(searchVal);
+    }
+    @Scheduled(fixedDelay = 10000)
+    public void refreshStateMeet(){
+        List<Meet> meets = getAll();
+        for(Meet meet : meets){
+            meet.refreshState();
+        }
+        meetRepository.saveAll(meets);
     }
 }
