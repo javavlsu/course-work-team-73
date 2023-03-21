@@ -1,5 +1,6 @@
 package BoardMeet.Backend.controller;
 
+import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundBoardGameException;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Service.BoardGameService;
@@ -35,15 +36,22 @@ public class BoardGamesController {
         }
     }
     @PostMapping
-    public  ResponseEntity<?> post(@Valid @RequestBody BoardGameCreateDTO boardGame){
-        return new ResponseEntity(boardGameService.create(boardGame),HttpStatus.OK);
+    public  ResponseEntity<?> post(@Valid @ModelAttribute BoardGameCreateDTO boardGame){
+
+        try {
+            return new ResponseEntity(boardGameService.create(boardGame),HttpStatus.OK);
+        }catch (NotAccessExtensionException e) {
+            return new  ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
     @PutMapping
-    public  ResponseEntity<?> put(@Valid @RequestBody BoardGameChangeDTO boardGame){
+    public  ResponseEntity<?> put(@Valid @ModelAttribute BoardGameChangeDTO boardGame){
         try {
             return new  ResponseEntity(boardGameService.change(boardGame),HttpStatus.OK);
         }catch (NotFoundBoardGameException e ){
             return  new ResponseEntity(e.getMessage(),HttpStatus.OK);
+        }catch (NotAccessExtensionException e) {
+            return new  ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
     @DeleteMapping("{id}")

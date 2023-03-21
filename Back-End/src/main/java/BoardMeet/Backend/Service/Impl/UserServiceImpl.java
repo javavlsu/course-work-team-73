@@ -1,5 +1,6 @@
 package BoardMeet.Backend.Service.Impl;
 
+import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Model.Meet;
@@ -42,9 +43,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String uploadAvatar(MultipartFile avatar, Long userId ) throws IOException, NotFoundUserException {
+    public String uploadAvatar(MultipartFile avatar, Long userId ) throws IOException, NotFoundUserException,NotAccessExtensionException {
         User user = userRepository.findById(userId).orElseThrow(()->new NotFoundUserException("User by id : " + userId + " Not Found"));
-        user.setAvatarUrl(fileService.uploadAvatar(avatar));
+        try {
+            user.setAvatarUrl(fileService.uploadAvatar(avatar));
+        } catch (NotAccessExtensionException e) {
+            throw e;
+        }
         userRepository.save(user);
         return user.getAvatarUrl();
     }

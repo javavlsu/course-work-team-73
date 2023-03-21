@@ -1,5 +1,6 @@
 package BoardMeet.Backend.Service;
 
+import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Model.Meet;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 public interface UserService {
     User register(UserRegisterDTO user);
-    String uploadAvatar(MultipartFile avatar,Long userId) throws IOException, NotFoundUserException;
+    String uploadAvatar(MultipartFile avatar,Long userId) throws IOException, NotFoundUserException, NotAccessExtensionException;
     List<User> getAll();
     User findByUsername(String username);
     User get (Long Id) throws NotFoundUserException;

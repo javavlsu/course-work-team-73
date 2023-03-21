@@ -1,14 +1,18 @@
 package BoardMeet.Backend.Service.Impl;
 
+import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundBoardGameException;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Repository.BoardGameRepository;
 import BoardMeet.Backend.Service.BoardGameService;
+import BoardMeet.Backend.Service.FileService;
 import BoardMeet.Backend.dto.BoardGameChangeDTO;
 import BoardMeet.Backend.dto.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.io.IOException;
 import java.util.List;
 @Service
 public class BoardGameServiceImpl implements BoardGameService {
@@ -16,8 +20,12 @@ public class BoardGameServiceImpl implements BoardGameService {
     @Autowired
     private final BoardGameRepository boardGameRepository;
 
-    public BoardGameServiceImpl(BoardGameRepository boardGameRepository) {
+    @Autowired
+    private  final FileService fileService;
+
+    public BoardGameServiceImpl(BoardGameRepository boardGameRepository, FileService fileService) {
         this.boardGameRepository = boardGameRepository;
+        this.fileService = fileService;
     }
 
     @Override
@@ -32,17 +40,50 @@ public class BoardGameServiceImpl implements BoardGameService {
     }
 
     @Override
-    public BoardGame change(BoardGameChangeDTO boardGame) throws NotFoundBoardGameException {
+    public BoardGame change(BoardGameChangeDTO boardGame) throws NotFoundBoardGameException,NotAccessExtensionException {
         BoardGame boardGameChanging = boardGameRepository.findById(boardGame.getId()).orElseThrow(()-> new NotFoundBoardGameException("Board game by id : " + boardGame.getId() +" Not Found"));
+        if(boardGame.getAvatarGame() != null) {
+            try {
+                boardGameChanging.setGameAvatar(fileService.uploadBoardGameAvatar(boardGame.getAvatarGame()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (NotAccessExtensionException e) {
+                throw e;
+            }
+        }
+        if(boardGame.getRule() != null) {
+            try {
+                boardGameChanging.setRule(fileService.uploadRule(boardGame.getRule()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (NotAccessExtensionException e) {
+                throw e;
+            }
+        }
         boardGameChanging.change(boardGame);
         boardGameRepository.save(boardGameChanging);
         return  boardGameChanging;
     }
 
     @Override
-    public BoardGame create(BoardGameCreateDTO boardGame) {
+    public BoardGame create( BoardGameCreateDTO boardGame) throws NotAccessExtensionException {
         BoardGame boardGameCreating = new BoardGame(boardGame);
+        try {
+            boardGameCreating.setGameAvatar(fileService.uploadBoardGameAvatar(boardGame.getAvatarGame()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (NotAccessExtensionException e) {
+            throw e;
+        }
+        try {
+            boardGameCreating.setRule(fileService.uploadRule(boardGame.getRule()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (NotAccessExtensionException e) {
+            throw e;
+        }
         boardGameRepository.save(boardGameCreating);
+
         return  boardGameCreating;
     }
 

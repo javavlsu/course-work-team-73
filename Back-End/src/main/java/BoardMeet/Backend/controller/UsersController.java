@@ -1,5 +1,6 @@
 package BoardMeet.Backend.controller;
 
+import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Model.User;
 import BoardMeet.Backend.Service.UserService;
@@ -36,6 +37,8 @@ public class UsersController {
             return  new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }catch (NotFoundUserException e ){
             return  new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        } catch (NotAccessExtensionException e) {
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping
