@@ -1,8 +1,9 @@
 package BoardMeet.Backend.dto;
-import java.sql.Date;
+import java.util.Date;
 
 public class CommentCreateDTO {
     private String body;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
     private int rating;
     private int weightGame;

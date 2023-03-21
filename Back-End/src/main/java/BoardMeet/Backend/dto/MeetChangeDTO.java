@@ -3,8 +3,7 @@ package BoardMeet.Backend.dto;
 import BoardMeet.Backend.Model.User;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 public class MeetChangeDTO implements Serializable {
@@ -14,6 +13,8 @@ public class MeetChangeDTO implements Serializable {
     private int duration;
     private String link;
     private java.sql.Date date;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date date;
     private String location;
     private String city;
     private String games;

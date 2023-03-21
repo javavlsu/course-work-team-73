@@ -1,10 +1,12 @@
 package BoardMeet.Backend.Model;
 
 import BoardMeet.Backend.dto.CommentCreateDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -16,6 +18,9 @@ public class Comment extends  BaseEntity{
     private String body;
     @Column
     private  Integer rating;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column
+    private Date date;
     @Column
     private  Integer weightGame;
     @Column
@@ -44,6 +49,7 @@ public class Comment extends  BaseEntity{
         this.agePlayer = comment.getAgePlayer();
         this.authorId = comment.getAuthorId();
         this.gameId = comment.getGameId();
+        this.date = comment.getDate();
     }
 
     public String getBody() {
@@ -68,6 +74,30 @@ public class Comment extends  BaseEntity{
 
     public void setWeightGame(Integer weightGame) {
         this.weightGame = weightGame;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
+
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 
     public Integer getGameTime() {
@@ -102,19 +132,4 @@ public class Comment extends  BaseEntity{
         this.agePlayer = agePlayer;
     }
 
-    public Long getAuthor() {
-        return authorId;
-    }
-
-    public void setAuthor(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    public Long getGame() {
-        return gameId;
-    }
-
-    public void setGame(Long gameId) {
-        this.gameId = gameId;
-    }
 }

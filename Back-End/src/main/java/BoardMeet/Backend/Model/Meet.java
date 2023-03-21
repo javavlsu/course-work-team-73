@@ -2,10 +2,7 @@ package BoardMeet.Backend.Model;
 
 import BoardMeet.Backend.dto.MeetChangeDTO;
 import BoardMeet.Backend.dto.MeetCreateDTO;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
@@ -32,6 +29,7 @@ public class Meet extends  BaseEntity{
     @Column
     private  String link;
     @Column
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
     @Column
     @Enumerated(EnumType.STRING)

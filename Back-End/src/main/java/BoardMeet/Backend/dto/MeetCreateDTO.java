@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class MeetCreateDTO implements Serializable {
     @NotNull
@@ -19,6 +19,7 @@ public class MeetCreateDTO implements Serializable {
     private int duration;
     private String link;
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
     @NotNull
     private String location;
