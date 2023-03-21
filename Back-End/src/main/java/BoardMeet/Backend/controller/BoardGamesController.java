@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,11 +35,11 @@ public class BoardGamesController {
         }
     }
     @PostMapping
-    public  ResponseEntity<?> post(@RequestBody BoardGameCreateDTO boardGame){
+    public  ResponseEntity<?> post(@Valid @RequestBody BoardGameCreateDTO boardGame){
         return new ResponseEntity(boardGameService.create(boardGame),HttpStatus.OK);
     }
     @PutMapping
-    public  ResponseEntity<?> put(@RequestBody BoardGameChangeDTO boardGame){
+    public  ResponseEntity<?> put(@Valid @RequestBody BoardGameChangeDTO boardGame){
         try {
             return new  ResponseEntity(boardGameService.change(boardGame),HttpStatus.OK);
         }catch (NotFoundBoardGameException e ){

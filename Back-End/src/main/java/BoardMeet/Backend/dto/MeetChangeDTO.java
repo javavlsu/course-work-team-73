@@ -1,23 +1,35 @@
 package BoardMeet.Backend.dto;
 
 import BoardMeet.Backend.Model.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 public class MeetChangeDTO implements Serializable {
+    @NotEmpty
     private  Long Id;
+    @Length(min = 2)
     private String name;
+    @Min(2)
     private int peopleCountMax;
+    @Min(1)
     private int duration;
     private String link;
-    private java.sql.Date date;
+    @NotEmpty
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
+    @NotEmpty
     private String location;
+    @NotEmpty
     private String city;
     private String games;
+    @NotNull
     private Set<User> players;
 
     public Long getId() {

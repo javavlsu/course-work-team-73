@@ -1,17 +1,32 @@
 package BoardMeet.Backend.dto;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+
 public class BoardGameChangeDTO {
+        @NotEmpty
         private  Long id;
+        @NotEmpty
+        @Length(min = 1)
         private String name;
+        @NotEmpty
         private String authorsGame;
+        @NotEmpty
         private String genre;
+        @NotEmpty
         private String artists;
+        @NotEmpty
         private  String publisher;
+        @NotEmpty
         private int rangeOfPlayersMin;
+        @NotEmpty
         private int rangeOfPlayersMax;
+        @NotEmpty
         private int gameTime;
+        @NotEmpty
         private String description;
+        @NotEmpty
         private int agePlayer;
         private MultipartFile rule;
         private MultipartFile avatarGame;

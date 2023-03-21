@@ -1,17 +1,38 @@
 package BoardMeet.Backend.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class CommentCreateDTO {
+
+    @NotNull
     private String body;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
+    @Min(1)
+    @Max(5)
+    @NotEmpty
     private int rating;
+    @Min(1)
+    @Max(5)
+    @NotEmpty
     private int weightGame;
+    @NotEmpty
     private int gameTime;
+    @Min(1)
+    @NotEmpty
     private int bestPlayerMin;
+    @NotEmpty
     private int bestPlayerMax;
+    @NotEmpty
     private int agePlayer;
+    @NotEmpty
     private Long authorId;
+    @NotEmpty
     private Long gameId;
 
     public String getBody() {
@@ -22,7 +43,7 @@ public class CommentCreateDTO {
         this.body = body;
     }
 
-    public java.sql.Date getDate() {
+    public Date getDate() {
         return date;
     }
 

@@ -40,7 +40,7 @@ public class MeetsController {
     }
 
     @PutMapping
-    public ResponseEntity<?> put(@RequestBody MeetChangeDTO meetChanging){
+    public ResponseEntity<?> put(@Valid @RequestBody MeetChangeDTO meetChanging){
         try{
             Meet meetChanged =  meetService.change(meetChanging);
             return new ResponseEntity<>(meetChanged, HttpStatus.OK);

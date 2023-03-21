@@ -1,5 +1,6 @@
 package BoardMeet.Backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.Length;
 

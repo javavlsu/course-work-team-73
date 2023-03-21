@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api/comment/")
 public class CommentsController {
@@ -21,7 +23,7 @@ public class CommentsController {
     }
 
     @PostMapping
-    public ResponseEntity<?> post(@RequestBody CommentCreateDTO comment){
+    public ResponseEntity<?> post(@Valid @RequestBody CommentCreateDTO comment){
         return  new ResponseEntity(commentService.create(comment), HttpStatus.OK);
 
     }
