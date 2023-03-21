@@ -3,9 +3,10 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class BoardGameChangeDTO {
-        @NotEmpty
+        @NotNull
         private  Long id;
         @NotEmpty
         @Length(min = 1)
@@ -18,21 +19,18 @@ public class BoardGameChangeDTO {
         private String artists;
         @NotEmpty
         private  String publisher;
-        @NotEmpty
+        @NotNull
         private int rangeOfPlayersMin;
-        @NotEmpty
+        @NotNull
         private int rangeOfPlayersMax;
-        @NotEmpty
+        @NotNull
         private int gameTime;
         @NotEmpty
         private String description;
-        @NotEmpty
+        @NotNull
         private int agePlayer;
         private MultipartFile rule;
         private MultipartFile avatarGame;
-        public String getName() {
-                return name;
-        }
 
         private String Publishers;
 
@@ -41,11 +39,15 @@ public class BoardGameChangeDTO {
         }
 
         public void setId(Long id) {
-                id = id;
+                this.id = id;
+        }
+
+        public String getName() {
+                return name;
         }
 
         public void setName(String name) {
-                name = name;
+                this.name = name;
         }
 
         public String getAuthorsGame() {
@@ -53,7 +55,7 @@ public class BoardGameChangeDTO {
         }
 
         public void setAuthorsGame(String authorsGame) {
-                authorsGame = authorsGame;
+                this.authorsGame = authorsGame;
         }
 
         public String getGenre() {
@@ -61,7 +63,7 @@ public class BoardGameChangeDTO {
         }
 
         public void setGenre(String genre) {
-                genre = genre;
+                this.genre = genre;
         }
 
         public String getArtists() {
@@ -69,7 +71,7 @@ public class BoardGameChangeDTO {
         }
 
         public void setArtists(String artists) {
-                artists = artists;
+                this.artists = artists;
         }
 
         public String getPublisher() {
@@ -77,15 +79,7 @@ public class BoardGameChangeDTO {
         }
 
         public void setPublisher(String publisher) {
-                publisher = publisher;
-        }
-
-        public String getPublishers() {
-                return Publishers;
-        }
-
-        public void setPublishers(String publishers) {
-                Publishers = publishers;
+                this.publisher = publisher;
         }
 
         public int getRangeOfPlayersMin() {
@@ -93,7 +87,7 @@ public class BoardGameChangeDTO {
         }
 
         public void setRangeOfPlayersMin(int rangeOfPlayersMin) {
-                rangeOfPlayersMin = rangeOfPlayersMin;
+                this.rangeOfPlayersMin = rangeOfPlayersMin;
         }
 
         public int getRangeOfPlayersMax() {
@@ -142,5 +136,13 @@ public class BoardGameChangeDTO {
 
         public void setAvatarGame(MultipartFile avatarGame) {
                 this.avatarGame = avatarGame;
+        }
+
+        public String getPublishers() {
+                return Publishers;
+        }
+
+        public void setPublishers(String publishers) {
+                Publishers = publishers;
         }
 }

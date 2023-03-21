@@ -1,37 +1,42 @@
 package BoardMeet.Backend.dto;
 
+import org.aspectj.lang.annotation.RequiredTypes;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class BoardGameCreateDTO {
-    @Length(min = 1)
+public class BoardGameCreateDTO implements Serializable {
+
     @NotEmpty
     private String name;
     @NotEmpty
+    private String genre;
+    @NotNull
     private int rangeOfPlayersMin;
-    @NotEmpty
+    @NotNull
     private int rangeOfPlayersMax;
-    @NotEmpty
+    @NotNull
     private int gameTime;
     @NotEmpty
     private String description;
-    @NotEmpty
+    @NotNull
     private int agePlayer;
     @NotEmpty
-
     private String authorsGame;
-    @NotEmpty
-    private String genre;
     @NotEmpty
     private String artists;
     @NotEmpty
     private String publishers;
-    @NotEmpty
+    @NotNull
     private Long authorId;
     private MultipartFile rule;
     private MultipartFile avatarGame;
+
+    public BoardGameCreateDTO() {
+    }
 
     public String getName() {
         return name;
@@ -41,12 +46,20 @@ public class BoardGameCreateDTO {
         this.name = name;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public int getRangeOfPlayersMin() {
         return rangeOfPlayersMin;
     }
 
     public void setRangeOfPlayersMin(int rangeOfPlayersMin) {
-        rangeOfPlayersMin = rangeOfPlayersMin;
+        this.rangeOfPlayersMin = rangeOfPlayersMin;
     }
 
     public int getRangeOfPlayersMax() {
@@ -54,7 +67,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setRangeOfPlayersMax(int rangeOfPlayersMax) {
-        rangeOfPlayersMax = rangeOfPlayersMax;
+        this.rangeOfPlayersMax = rangeOfPlayersMax;
     }
 
     public int getGameTime() {
@@ -62,7 +75,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setGameTime(int gameTime) {
-        gameTime = gameTime;
+        this.gameTime = gameTime;
     }
 
     public String getDescription() {
@@ -70,7 +83,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setDescription(String description) {
-        description = description;
+        this.description = description;
     }
 
     public int getAgePlayer() {
@@ -78,7 +91,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setAgePlayer(int agePlayer) {
-        agePlayer = agePlayer;
+        this.agePlayer = agePlayer;
     }
 
     public String getAuthorsGame() {
@@ -86,15 +99,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setAuthorsGame(String authorsGame) {
-        authorsGame = authorsGame;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        genre = genre;
+        this.authorsGame = authorsGame;
     }
 
     public String getArtists() {
@@ -102,7 +107,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setArtists(String artists) {
-        artists = artists;
+        this.artists = artists;
     }
 
     public String getPublishers() {
@@ -110,7 +115,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setPublishers(String publishers) {
-        publishers = publishers;
+        this.publishers = publishers;
     }
 
     public Long getAuthorId() {
@@ -118,7 +123,7 @@ public class BoardGameCreateDTO {
     }
 
     public void setAuthorId(Long authorId) {
-        authorId = authorId;
+        this.authorId = authorId;
     }
 
     public MultipartFile getRule() {
