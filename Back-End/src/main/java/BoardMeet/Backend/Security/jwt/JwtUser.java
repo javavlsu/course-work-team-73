@@ -7,6 +7,14 @@ import java.util.Date;
 import java.util.Collection;
 
 public class JwtUser implements UserDetails {
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     private  final  Long id;
     private  final  String username;
     private  final String email;
