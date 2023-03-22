@@ -1,5 +1,6 @@
 package BoardMeet.Backend.Service.Impl;
 
+import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotFoundCommentException;
 import BoardMeet.Backend.Model.Comment;
 import BoardMeet.Backend.Repository.CommentRepository;
@@ -28,7 +29,6 @@ public class CommentServiceImpl implements CommentService {
     public void delete(Long id) throws  NotFoundCommentException {
         Comment comment = commentRepository.findById(id).orElseThrow(()->new NotFoundCommentException("Comment by id : " + id +" Not Found"));
         commentRepository.delete(comment);
-
     }
 
     @Override
