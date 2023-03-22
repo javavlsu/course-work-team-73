@@ -9,10 +9,26 @@ import java.util.List;
 @Table(name = "roles")
 @Data
 public class Role extends BaseEntity{
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany
     private List<User> users;
 
     @Override
