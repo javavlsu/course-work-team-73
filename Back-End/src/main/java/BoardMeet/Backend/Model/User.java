@@ -30,7 +30,10 @@ public class User extends  BaseEntity{
     @Column
     private  String aboutMe;
     @Column
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles;
     @OneToMany(mappedBy = "authorId")
     private Set<BoardGame> CreateBoardGames;
