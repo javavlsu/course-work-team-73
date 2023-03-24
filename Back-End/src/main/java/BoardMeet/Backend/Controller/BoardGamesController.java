@@ -3,10 +3,13 @@ package BoardMeet.Backend.Controller;
 import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundBoardGameException;
+import BoardMeet.Backend.Filter.BoardGameFilter;
 import BoardMeet.Backend.Service.BoardGameService;
 import BoardMeet.Backend.DTO.BoardGameChangeDTO;
 import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -23,13 +26,16 @@ public class BoardGamesController {
     public BoardGamesController(BoardGameService boardGameService) {
         this.boardGameService = boardGameService;
     }
-    @GetMapping
-    public ResponseEntity<?> getAll(){
-        return  new ResponseEntity<>(boardGameService.getAll(), HttpStatus.OK);
-    }
     @GetMapping("recommendation/{id}")
-    public ResponseEntity<?> getRecommendation(@PathVariable Long id){
-        return  new ResponseEntity<>(boardGameService.getRecommendation(),HttpStatus.OK);
+    public ResponseEntity<?> getRecommendation(@PathVariable Long id,@RequestParam("offset") Integer offset,
+                                               @RequestParam("limit") Integer limit){
+        return  new ResponseEntity<>(boardGameService.getRecommendation(PageRequest.of(offset,limit)),HttpStatus.OK);
+    }
+    @GetMapping
+    public ResponseEntity<?> filter(BoardGameFilter boardGameFilter,@RequestParam("offset") Integer offset,
+                                    @RequestParam("limit") Integer limit){
+
+        return new ResponseEntity<>(boardGameService.filter(boardGameFilter, PageRequest.of(offset,limit)),HttpStatus.OK);
     }
     @GetMapping("{id}")
     public ResponseEntity<?> get(@PathVariable Long id){
@@ -80,9 +86,5 @@ public class BoardGamesController {
     @GetMapping("search/{searchVal}")
     public  ResponseEntity<?> search(@PathVariable String searchVal){
         return new ResponseEntity(boardGameService.searchByName(searchVal),HttpStatus.OK);
-    }
-    @GetMapping("filter/{genre}")
-    public  ResponseEntity<?> filter(@PathVariable String genre){
-        return new ResponseEntity(boardGameService.filterByGenre(genre),HttpStatus.OK);
     }
 }

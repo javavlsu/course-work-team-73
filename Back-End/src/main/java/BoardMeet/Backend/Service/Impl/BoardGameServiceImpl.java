@@ -3,6 +3,7 @@ package BoardMeet.Backend.Service.Impl;
 import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundBoardGameException;
+import BoardMeet.Backend.Filter.BoardGameFilter;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Repository.BoardGameRepository;
 import BoardMeet.Backend.Service.BoardGameService;
@@ -12,7 +13,8 @@ import BoardMeet.Backend.Service.RecommendationService;
 import BoardMeet.Backend.DTO.BoardGameChangeDTO;
 import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -43,16 +45,21 @@ public class BoardGameServiceImpl implements BoardGameService {
     }
 
     @Override
-    public List<BoardGame> getRecommendation() {
+    public Page<BoardGame> getRecommendation(PageRequest pageable) {
         Long id = controllAccessService.getIdUser();
         if(id <= 0 ){
-            return boardGameRepository.findAll(Sort.by(Sort.Direction.DESC, "ratingUser"));
+            return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser")));
         }
-        List<BoardGame> bgs = boardGameRepository.getRecommendation(id);
+        Page<BoardGame> bgs = boardGameRepository.getRecommendation(id, pageable);
         if(bgs.isEmpty() == true ){
-            return boardGameRepository.findAll(Sort.by(Sort.Direction.DESC, "ratingUser"));
+            return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser")));
         }
         return bgs;
+    }
+
+    @Override
+    public Page<BoardGame> filter(BoardGameFilter filter, PageRequest pageRequest) {
+        return boardGameRepository.findAll(filter,pageRequest);
     }
 
     @Override
