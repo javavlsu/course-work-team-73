@@ -1,4 +1,4 @@
-package BoardMeet.Backend.config;
+package BoardMeet.Backend.Config;
 import BoardMeet.Backend.Security.jwt.JwtConfigurer;
 import BoardMeet.Backend.Security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;

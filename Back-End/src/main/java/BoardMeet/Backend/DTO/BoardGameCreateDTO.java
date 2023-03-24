@@ -1,7 +1,5 @@
-package BoardMeet.Backend.dto;
+package BoardMeet.Backend.DTO;
 
-import org.aspectj.lang.annotation.RequiredTypes;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;

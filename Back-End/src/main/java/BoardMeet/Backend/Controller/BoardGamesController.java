@@ -1,12 +1,11 @@
-package BoardMeet.Backend.controller;
+package BoardMeet.Backend.Controller;
 
 import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundBoardGameException;
-import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Service.BoardGameService;
-import BoardMeet.Backend.dto.BoardGameChangeDTO;
-import BoardMeet.Backend.dto.BoardGameCreateDTO;
+import BoardMeet.Backend.DTO.BoardGameChangeDTO;
+import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/boardGame/")
@@ -29,12 +27,16 @@ public class BoardGamesController {
     public ResponseEntity<?> getAll(){
         return  new ResponseEntity<>(boardGameService.getAll(), HttpStatus.OK);
     }
+    @GetMapping("recommendation/{id}")
+    public ResponseEntity<?> getRecommendation(@PathVariable Long id){
+        return  new ResponseEntity<>(boardGameService.getRecommendation(),HttpStatus.OK);
+    }
     @GetMapping("{id}")
     public ResponseEntity<?> get(@PathVariable Long id){
         try {
-            return new  ResponseEntity(boardGameService.get(id),HttpStatus.OK);
+            return new  ResponseEntity<>(boardGameService.get(id),HttpStatus.OK);
         }catch (NotFoundBoardGameException e ){
-            return  new ResponseEntity(e.getMessage(),HttpStatus.OK);
+            return  new ResponseEntity<>(e.getMessage(),HttpStatus.OK);
         }
     }
     @Secured("ROLE_PUBLISHER")

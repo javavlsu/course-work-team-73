@@ -1,10 +1,9 @@
-package BoardMeet.Backend.controller;
+package BoardMeet.Backend.Controller;
 
 import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotFoundCommentException;
-import BoardMeet.Backend.Model.Comment;
 import BoardMeet.Backend.Service.CommentService;
-import BoardMeet.Backend.dto.CommentCreateDTO;
+import BoardMeet.Backend.DTO.CommentCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,12 @@ public class CommentsController {
     @PostMapping
     @Secured({"ROLE_PLAYER"})
     public ResponseEntity<?> post(@Valid @RequestBody CommentCreateDTO comment){
-        return  new ResponseEntity(commentService.create(comment), HttpStatus.OK);
+        try {
+            return  new ResponseEntity(commentService.create(comment), HttpStatus.OK);
+        }catch (NoAccessException e){
+            return  new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
 
     }
     @GetMapping("{id}")

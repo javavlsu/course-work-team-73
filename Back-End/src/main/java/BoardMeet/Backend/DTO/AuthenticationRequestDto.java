@@ -1,4 +1,4 @@
-package BoardMeet.Backend.dto;
+package BoardMeet.Backend.DTO;
 
 public class AuthenticationRequestDto {
     private String username;

@@ -1,4 +1,4 @@
-package BoardMeet.Backend.dto;
+package BoardMeet.Backend.DTO;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 

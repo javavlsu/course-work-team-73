@@ -1,4 +1,4 @@
-package BoardMeet.Backend.dto;
+package BoardMeet.Backend.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;

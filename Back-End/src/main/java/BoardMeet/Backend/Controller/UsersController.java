@@ -1,20 +1,14 @@
-package BoardMeet.Backend.controller;
+package BoardMeet.Backend.Controller;
 
 import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Exception.UserExistException;
-import BoardMeet.Backend.Model.User;
 import BoardMeet.Backend.Service.UserService;
-import BoardMeet.Backend.dto.UserRegisterDTO;
-import org.aspectj.weaver.ast.Not;
+import BoardMeet.Backend.DTO.UserRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

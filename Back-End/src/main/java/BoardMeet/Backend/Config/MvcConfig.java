@@ -1,4 +1,4 @@
-package BoardMeet.Backend.config;
+package BoardMeet.Backend.Config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

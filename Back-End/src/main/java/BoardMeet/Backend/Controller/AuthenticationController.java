@@ -1,9 +1,9 @@
-package BoardMeet.Backend.controller;
+package BoardMeet.Backend.Controller;
 
 import BoardMeet.Backend.Model.User;
 import BoardMeet.Backend.Security.jwt.JwtTokenProvider;
 import BoardMeet.Backend.Service.UserService;
-import BoardMeet.Backend.dto.AuthenticationRequestDto;
+import BoardMeet.Backend.DTO.AuthenticationRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

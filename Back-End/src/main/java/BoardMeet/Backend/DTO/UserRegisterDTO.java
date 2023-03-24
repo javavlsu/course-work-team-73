@@ -1,11 +1,10 @@
-package BoardMeet.Backend.dto;
+package BoardMeet.Backend.DTO;
 
 import BoardMeet.Backend.Model.Role;
 import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Pattern;
-import java.util.List;
 import java.util.Set;
 
 
