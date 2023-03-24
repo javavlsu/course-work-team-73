@@ -1,5 +1,6 @@
 package BoardMeet.Backend.Model;
 
+import BoardMeet.Backend.DTO.CommentCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -17,6 +18,18 @@ public class Recommendation {
     @Id
     private Long boardGameId;
     private  long interest;
+
+    public Recommendation(){}
+    public Recommendation(CommentCreateDTO comment){
+        userId = comment.getAuthorId();
+        boardGameId = comment.getGameId();
+        interest = 0;
+    }
+    public  Recommendation(Long boardGameId, Long userId){
+        this.userId = userId;
+        this.boardGameId = boardGameId;
+        interest = 0;
+    }
 
     public Long getUserId() {
         return userId;

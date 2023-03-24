@@ -21,6 +21,9 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Override
     public void changeByComment(CommentCreateDTO comment) {
         Recommendation r =  recommendationRepository.findByUserAndBoardGame(comment.getAuthorId(),comment.getGameId());
+        if(r == null){
+            r = new Recommendation(comment);
+        }
         r.setInterest(r.getInterest()+20);
         recommendationRepository.save(r);
     }
@@ -32,6 +35,9 @@ public class RecommendationServiceImpl implements RecommendationService {
             return;
         }
         Recommendation r =  recommendationRepository.findByUserAndBoardGame(controllAccessService.getIdUser(),boardGameId);
+        if(r == null){
+            r = new Recommendation(boardGameId,id);
+        }
         r.setInterest(r.getInterest()+1);
         recommendationRepository.save(r);
     }
