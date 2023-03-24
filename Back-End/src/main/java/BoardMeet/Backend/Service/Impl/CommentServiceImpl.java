@@ -5,7 +5,9 @@ import BoardMeet.Backend.Exception.NotFoundCommentException;
 import BoardMeet.Backend.Model.Comment;
 import BoardMeet.Backend.Repository.CommentRepository;
 import BoardMeet.Backend.Service.CommentService;
-import BoardMeet.Backend.dto.CommentCreateDTO;
+import BoardMeet.Backend.Service.ControllAccessService;
+import BoardMeet.Backend.Service.RecommendationService;
+import BoardMeet.Backend.DTO.CommentCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +15,25 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private  final CommentRepository commentRepository;
+    @Autowired
+    private  final RecommendationService recommendationService;
 
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    @Autowired
+    private  final  ControllAccessService controllAccessService;
+
+    public CommentServiceImpl(CommentRepository commentRepository, RecommendationService recommendationService, ControllAccessService controllAccessService) {
         this.commentRepository = commentRepository;
+        this.recommendationService = recommendationService;
+        this.controllAccessService = controllAccessService;
     }
 
     @Override
-    public Comment create(CommentCreateDTO comment) {
+    public Comment create(CommentCreateDTO comment) throws NoAccessException {
         Comment commentCreating = new Comment(comment);
+
+        controllAccessService.tryAccess(comment.getAuthorId());
         commentRepository.save(commentCreating);
+        recommendationService.changeByComment(comment);
         return commentCreating;
     }
 

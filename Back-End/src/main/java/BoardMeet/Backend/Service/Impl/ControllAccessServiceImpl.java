@@ -20,4 +20,13 @@ public class ControllAccessServiceImpl implements ControllAccessService {
         }
 
     }
+
+    @Override
+    public Long getIdUser() {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return 0L;
+        }
+       JwtUser user = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       return user.getId();
+    }
 }

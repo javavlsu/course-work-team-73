@@ -8,9 +8,11 @@ import BoardMeet.Backend.Repository.BoardGameRepository;
 import BoardMeet.Backend.Service.BoardGameService;
 import BoardMeet.Backend.Service.ControllAccessService;
 import BoardMeet.Backend.Service.FileService;
-import BoardMeet.Backend.dto.BoardGameChangeDTO;
-import BoardMeet.Backend.dto.BoardGameCreateDTO;
+import BoardMeet.Backend.Service.RecommendationService;
+import BoardMeet.Backend.DTO.BoardGameChangeDTO;
+import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,10 +27,14 @@ public class BoardGameServiceImpl implements BoardGameService {
     private  final FileService fileService;
     @Autowired
     private  final ControllAccessService controllAccessService;
-    public BoardGameServiceImpl(BoardGameRepository boardGameRepository, FileService fileService, ControllAccessService controllAccessService) {
+
+    @Autowired
+    private  final RecommendationService recommendationService;
+    public BoardGameServiceImpl(BoardGameRepository boardGameRepository, FileService fileService, ControllAccessService controllAccessService, RecommendationService recommendationService) {
         this.boardGameRepository = boardGameRepository;
         this.fileService = fileService;
         this.controllAccessService = controllAccessService;
+        this.recommendationService = recommendationService;
     }
 
     @Override
@@ -37,8 +43,22 @@ public class BoardGameServiceImpl implements BoardGameService {
     }
 
     @Override
-    public BoardGame get(Long Id) throws NotFoundBoardGameException {
-        BoardGame boardGame = boardGameRepository.findById(Id).orElseThrow(()->new NotFoundBoardGameException("Board game by id : " + Id +" Not Found"));
+    public List<BoardGame> getRecommendation() {
+        Long id = controllAccessService.getIdUser();
+        if(id <= 0 ){
+            return boardGameRepository.findAll(Sort.by(Sort.Direction.DESC, "ratingUser"));
+        }
+        List<BoardGame> bgs = boardGameRepository.getRecommendation(id);
+        if(bgs.isEmpty() == true ){
+            return boardGameRepository.findAll(Sort.by(Sort.Direction.DESC, "ratingUser"));
+        }
+        return bgs;
+    }
+
+    @Override
+    public BoardGame get(Long id) throws NotFoundBoardGameException {
+        BoardGame boardGame = boardGameRepository.findById(id).orElseThrow(()->new NotFoundBoardGameException("Board game by id : " + id +" Not Found"));
+        recommendationService.changeByFollowingLink(id);
         return boardGame;
     }
 
