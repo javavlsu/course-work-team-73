@@ -24,10 +24,8 @@ public class BoardGame extends  BaseEntity{
     private  Integer rangeOfPlayersMax;
     @Column
     private Integer gameTime;
-
     @Column
     private  String genre;
-
     @Column
     private  Double bestRangeOfPlayersMinUser;
     @Column
@@ -74,6 +72,11 @@ public class BoardGame extends  BaseEntity{
         this.rangeOfPlayersMax = boardGame.getRangeOfPlayersMax();
         this.publishers = boardGame.getPublishers();
         this.countComment = 0;
+        this.gameTimeUser = 0D;
+        this.bestRangeOfPlayersMaxUser = 0D;
+        this.bestRangeOfPlayersMinUser = 0D;
+        this.weightGameUser = 0D;
+        this.agePlayerUSer = 0D;
     }
     public  void change(BoardGameChangeDTO boardGame){
         this.agePlayer = boardGame.getAgePlayer();
