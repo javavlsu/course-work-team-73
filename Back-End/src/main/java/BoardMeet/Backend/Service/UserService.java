@@ -7,7 +7,7 @@ import BoardMeet.Backend.Exception.UserExistException;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.Model.Meet;
 import BoardMeet.Backend.Model.User;
-import BoardMeet.Backend.dto.UserRegisterDTO;
+import BoardMeet.Backend.DTO.UserRegisterDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package BoardMeet.Backend.Model;
 
-import BoardMeet.Backend.dto.CommentCreateDTO;
+import BoardMeet.Backend.DTO.CommentCreateDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;

@@ -1,7 +1,7 @@
 package BoardMeet.Backend.Model;
 
-import BoardMeet.Backend.dto.MeetChangeDTO;
-import BoardMeet.Backend.dto.MeetCreateDTO;
+import BoardMeet.Backend.DTO.MeetChangeDTO;
+import BoardMeet.Backend.DTO.MeetCreateDTO;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @JsonIdentityInfo(

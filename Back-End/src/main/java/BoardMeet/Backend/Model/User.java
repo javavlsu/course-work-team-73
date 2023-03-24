@@ -1,11 +1,10 @@
 package BoardMeet.Backend.Model;
 
-import BoardMeet.Backend.dto.UserRegisterDTO;
+import BoardMeet.Backend.DTO.UserRegisterDTO;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 @JsonIdentityInfo(

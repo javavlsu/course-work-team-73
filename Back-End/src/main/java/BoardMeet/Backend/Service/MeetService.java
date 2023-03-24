@@ -4,8 +4,8 @@ import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotFoundMeetException;
 import BoardMeet.Backend.Exception.NotFoundUserException;
 import BoardMeet.Backend.Model.Meet;
-import BoardMeet.Backend.dto.MeetChangeDTO;
-import BoardMeet.Backend.dto.MeetCreateDTO;
+import BoardMeet.Backend.DTO.MeetChangeDTO;
+import BoardMeet.Backend.DTO.MeetCreateDTO;
 
 import java.util.List;
 

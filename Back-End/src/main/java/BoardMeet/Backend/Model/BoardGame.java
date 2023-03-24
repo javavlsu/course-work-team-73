@@ -1,13 +1,12 @@
 package BoardMeet.Backend.Model;
 
-import BoardMeet.Backend.dto.BoardGameChangeDTO;
-import BoardMeet.Backend.dto.BoardGameCreateDTO;
+import BoardMeet.Backend.DTO.BoardGameChangeDTO;
+import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 
