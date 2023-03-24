@@ -41,7 +41,7 @@ public class BoardGame extends  BaseEntity{
     @Column
     private  Integer agePlayer;
     @Column
-    private  Double agePlayerUSer;
+    private  Double agePlayerUser;
     @Column
     private  String rule;
     @Column
@@ -73,10 +73,11 @@ public class BoardGame extends  BaseEntity{
         this.publishers = boardGame.getPublishers();
         this.countComment = 0;
         this.gameTimeUser = 0D;
+        this.ratingUser = 0D;
         this.bestRangeOfPlayersMaxUser = 0D;
         this.bestRangeOfPlayersMinUser = 0D;
         this.weightGameUser = 0D;
-        this.agePlayerUSer = 0D;
+        this.agePlayerUser = 0D;
     }
     public  void change(BoardGameChangeDTO boardGame){
         this.agePlayer = boardGame.getAgePlayer();
@@ -89,6 +90,42 @@ public class BoardGame extends  BaseEntity{
         this.rangeOfPlayersMin = boardGame.getRangeOfPlayersMin();
         this.rangeOfPlayersMax = boardGame.getRangeOfPlayersMax();
         this.publishers = boardGame.getPublishers();
+    }
+    public void addRatingData(Comment comment)
+    {
+        ratingUser = (ratingUser * countComment + comment.getRating()) / (countComment + 1);
+        weightGameUser = (weightGameUser * countComment + comment.getWeightGame()) / (countComment + 1);
+        agePlayerUser = (agePlayerUser * countComment + comment.getAgePlayer()) / (countComment + 1);
+        gameTimeUser = (gameTimeUser * countComment + comment.getGameTime()) / (countComment + 1);
+        bestRangeOfPlayersMaxUser = (bestRangeOfPlayersMaxUser * countComment + comment.getBestPlayerMax()) / (countComment + 1);
+        bestRangeOfPlayersMinUser = (bestRangeOfPlayersMinUser * countComment + comment.getBestPlayerMin()) / (countComment + 1);
+        countComment++;
+    }
+    public void removeRatingData(Comment comment)
+    {
+        if (countComment <= 1)
+        {
+            countComment--;
+            return;
+        }
+        ratingUser = (ratingUser * countComment - comment.getRating()) / (countComment - 1);
+        weightGameUser = (weightGameUser * countComment - comment.getWeightGame()) / (countComment - 1);
+        agePlayerUser = (agePlayerUser * countComment - comment.getAgePlayer()) / (countComment - 1);
+        gameTimeUser = (gameTimeUser * countComment - comment.getGameTime()) / (countComment - 1);
+        bestRangeOfPlayersMaxUser = (bestRangeOfPlayersMaxUser * countComment - comment.getBestPlayerMax()) / (countComment - 1);
+        bestRangeOfPlayersMinUser = (bestRangeOfPlayersMinUser * countComment - comment.getBestPlayerMin()) / (countComment - 1);
+        countComment--;
+    }
+
+    public BoardGame roundUserRating()
+    {
+        agePlayerUser = (double)Math.round(agePlayerUser);
+        gameTimeUser = (double)Math.round(gameTimeUser);
+        bestRangeOfPlayersMaxUser = (double)Math.round(bestRangeOfPlayersMaxUser);
+        bestRangeOfPlayersMinUser = (double)Math.round(bestRangeOfPlayersMinUser);
+        weightGameUser = (double)Math.round(weightGameUser * 100) / 100;
+        ratingUser = (double)Math.round(ratingUser * 100) / 100;
+        return this;
     }
     public String getName() {
         return name;
@@ -193,12 +230,12 @@ public class BoardGame extends  BaseEntity{
         this.agePlayer = agePlayer;
     }
 
-    public Double getAgePlayerUSer() {
-        return agePlayerUSer;
+    public Double getAgePlayerUser() {
+        return agePlayerUser;
     }
 
-    public void setAgePlayerUSer(Double agePlayerUSer) {
-        this.agePlayerUSer = agePlayerUSer;
+    public void setAgePlayerUser(Double agePlayerUser) {
+        this.agePlayerUser = agePlayerUser;
     }
 
     public String getRule() {

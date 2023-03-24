@@ -5,6 +5,7 @@ import BoardMeet.Backend.Exception.NotAccessExtensionException;
 import BoardMeet.Backend.Exception.NotFoundBoardGameException;
 import BoardMeet.Backend.Filter.BoardGameFilter;
 import BoardMeet.Backend.Model.BoardGame;
+import BoardMeet.Backend.Model.Comment;
 import BoardMeet.Backend.Repository.BoardGameRepository;
 import BoardMeet.Backend.Service.BoardGameService;
 import BoardMeet.Backend.Service.ControllAccessService;
@@ -48,25 +49,25 @@ public class BoardGameServiceImpl implements BoardGameService {
     public Page<BoardGame> getRecommendation(PageRequest pageable) {
         Long id = controllAccessService.getIdUser();
         if(id <= 0 ){
-            return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser")));
+            return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser"))).map(bg-> bg.roundUserRating());
         }
-        Page<BoardGame> bgs = boardGameRepository.getRecommendation(id, pageable);
+        Page<BoardGame> bgs = boardGameRepository.getRecommendation(id, pageable).map(bg-> bg.roundUserRating());
         if(bgs.isEmpty() == true ){
-            return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser")));
+            return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser"))).map(bg-> bg.roundUserRating());
         }
         return bgs;
     }
 
     @Override
     public Page<BoardGame> filter(BoardGameFilter filter, PageRequest pageRequest) {
-        return boardGameRepository.findAll(filter,pageRequest);
+        return boardGameRepository.findAll(filter,pageRequest).map(bg-> bg.roundUserRating());
     }
 
     @Override
     public BoardGame get(Long id) throws NotFoundBoardGameException {
         BoardGame boardGame = boardGameRepository.findById(id).orElseThrow(()->new NotFoundBoardGameException("Board game by id : " + id +" Not Found"));
         recommendationService.changeByFollowingLink(id);
-        return boardGame;
+        return boardGame.roundUserRating();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class BoardGameServiceImpl implements BoardGameService {
         }
         boardGameChanging.change(boardGame);
         boardGameRepository.save(boardGameChanging);
-        return  boardGameChanging;
+        return  boardGameChanging.roundUserRating();
     }
 
     @Override
@@ -116,7 +117,7 @@ public class BoardGameServiceImpl implements BoardGameService {
         }
         boardGameRepository.save(boardGameCreating);
 
-        return  boardGameCreating;
+        return  boardGameCreating.roundUserRating();
     }
 
     @Override
@@ -134,5 +135,19 @@ public class BoardGameServiceImpl implements BoardGameService {
     @Override
     public List<BoardGame> filterByGenre(String genre) {
         return boardGameRepository.findByGenre(genre);
+    }
+
+    @Override
+    public void addRatingData(Comment comment) {
+        BoardGame boardGame = boardGameRepository.findById(comment.getGameId()).get();
+        boardGame.addRatingData(comment);
+        boardGameRepository.save(boardGame);
+    }
+
+    @Override
+    public void removeRatingData(Comment comment) {
+        BoardGame boardGame = boardGameRepository.findById(comment.getGameId()).get();
+        boardGame.removeRatingData(comment);
+        boardGameRepository.save(boardGame);
     }
 }

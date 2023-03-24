@@ -7,6 +7,7 @@ import BoardMeet.Backend.Filter.BoardGameFilter;
 import BoardMeet.Backend.Model.BoardGame;
 import BoardMeet.Backend.DTO.BoardGameChangeDTO;
 import BoardMeet.Backend.DTO.BoardGameCreateDTO;
+import BoardMeet.Backend.Model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,8 @@ public interface BoardGameService {
     BoardGame create(BoardGameCreateDTO boardGame) throws NotAccessExtensionException, NoAccessException;
     void delete(Long Id) throws NotFoundBoardGameException, NoAccessException;
     List<BoardGame> searchByName(String searchVal) ;
-    List<BoardGame> filterByGenre(String genre) ;
+    List<BoardGame> filterByGenre(String genre);
+    void addRatingData(Comment comment);
+    void removeRatingData(Comment comment);
 
 }

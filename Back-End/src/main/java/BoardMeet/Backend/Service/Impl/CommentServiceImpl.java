@@ -4,6 +4,7 @@ import BoardMeet.Backend.Exception.NoAccessException;
 import BoardMeet.Backend.Exception.NotFoundCommentException;
 import BoardMeet.Backend.Model.Comment;
 import BoardMeet.Backend.Repository.CommentRepository;
+import BoardMeet.Backend.Service.BoardGameService;
 import BoardMeet.Backend.Service.CommentService;
 import BoardMeet.Backend.Service.ControllAccessService;
 import BoardMeet.Backend.Service.RecommendationService;
@@ -21,18 +22,22 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private  final  ControllAccessService controllAccessService;
 
-    public CommentServiceImpl(CommentRepository commentRepository, RecommendationService recommendationService, ControllAccessService controllAccessService) {
+    @Autowired
+    private  final BoardGameService boardGameService;
+
+    public CommentServiceImpl(CommentRepository commentRepository, RecommendationService recommendationService, ControllAccessService controllAccessService, BoardGameService boardGameService) {
         this.commentRepository = commentRepository;
         this.recommendationService = recommendationService;
         this.controllAccessService = controllAccessService;
+        this.boardGameService = boardGameService;
     }
 
     @Override
     public Comment create(CommentCreateDTO comment) throws NoAccessException {
         Comment commentCreating = new Comment(comment);
-
         controllAccessService.tryAccess(comment.getAuthorId());
         commentRepository.save(commentCreating);
+        boardGameService.addRatingData(commentCreating);
         recommendationService.changeByComment(comment);
         return commentCreating;
     }
@@ -40,6 +45,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void delete(Long id) throws  NotFoundCommentException {
         Comment comment = commentRepository.findById(id).orElseThrow(()->new NotFoundCommentException("Comment by id : " + id +" Not Found"));
+        boardGameService.removeRatingData(comment);
         commentRepository.delete(comment);
     }
 
