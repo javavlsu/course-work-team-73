@@ -1,6 +1,6 @@
 package BoardMeet.Backend.DTO;
 
-public class AuthenticationRequestDto {
+public class AuthenticationRequestDTO {
     private String username;
     private  String password;
 
