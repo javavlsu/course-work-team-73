@@ -8,6 +8,7 @@ import BoardMeet.Backend.Service.MeetService;
 import BoardMeet.Backend.DTO.MeetChangeDTO;
 import BoardMeet.Backend.DTO.MeetCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -25,8 +26,9 @@ public class MeetsController {
         this.meetService = meetService;
     }
     @GetMapping
-    public ResponseEntity<?> getAll(){
-        return new ResponseEntity<>(meetService.getAll(),HttpStatus.OK);
+    public ResponseEntity<?> getAll(@RequestParam("offset") Integer offset,
+                                    @RequestParam("limit") Integer limit){
+        return new ResponseEntity<>(meetService.getAll(PageRequest.of(offset,limit)),HttpStatus.OK);
     }
     @GetMapping("{Id}")
     public ResponseEntity<?> get(@PathVariable Long Id){

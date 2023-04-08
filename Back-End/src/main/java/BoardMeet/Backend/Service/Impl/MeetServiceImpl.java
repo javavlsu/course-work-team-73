@@ -14,6 +14,8 @@ import BoardMeet.Backend.DTO.MeetChangeDTO;
 import BoardMeet.Backend.DTO.MeetCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +35,8 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public List<Meet> getAll() {
-        return meetRepository.findAll();
+    public Page<Meet> getAll(PageRequest pageRequest) {
+        return meetRepository.findAll(pageRequest);
     }
 
     @Override
@@ -106,7 +108,7 @@ public class MeetServiceImpl implements MeetService {
     }
     @Scheduled(fixedDelay = 10000)
     public void refreshStateMeet(){
-        List<Meet> meets = getAll();
+        List<Meet> meets = meetRepository.findAll();
         for(Meet meet : meets){
             meet.refreshState();
         }
