@@ -15,7 +15,7 @@ export const Navbar = ({ exitHandler }) => {
   if (user != "0" && user != undefined) {
     buttonLink =
       <div className={style.buttons}>
-        <NavLink to={`user/${user.id}/${user.role}`} className={style.profileButton}>
+        <NavLink to={`user/${user.id}/${user.roles[0].name}`} className={style.profileButton}>
           <User />
         </NavLink>
         <button type="button" className={style.exitButton} onClick={exitHandler}><Exit /></button>
