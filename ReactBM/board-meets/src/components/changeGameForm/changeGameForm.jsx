@@ -14,26 +14,30 @@ import { PlayingTimeInput } from "../playingTimeInput/playingTimeInput";
 import { PublishersInput } from "../publishersInput/publishersInput";
 import style from "./changeGameForm.module.css";
 
-
 export const ChangeGameForm = ({ userId, url, game }) => {
-
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
 
   const onImageChange = (img) => {
     setImage(URL.createObjectURL(img));
-  }
+  };
 
   const deleteHandler = () => {
-    axios.delete(url + "BoardGames/" + game.id, getConfig())
-      .then(() => navigate(`/games`))
-  }
+    axios
+      .delete(`${url}boardGames/${game.id}`, getConfig())
+      .then(() => navigate(`/games`));
+  };
 
   useEffect(() => {
     if (game != null) {
       setValue("name", game.name);
-      setImage(url + game.gameAvatar);
+      setImage(`${url}static/bgAvatar/${game.gameAvatar}`);
       setValue("minPlayers", game.rangeOfPlayersMin);
       setValue("maxPlayers", game.rangeOfPlayersMax);
       setValue("playingTime", game.gameTime);
@@ -47,31 +51,36 @@ export const ChangeGameForm = ({ userId, url, game }) => {
   }, [game]);
 
   const onSubmit = (data) => {
-
     let changedGame = new FormData();
-    changedGame.append('rule', data.ruleFile[0]);
-    changedGame.append('avatarGame', data.gameImg[0]);
-    changedGame.append('Name', data.name);
-    changedGame.append('RangeOfPlayersMin', data.minPlayers);
-    changedGame.append('RangeOfPlayersMax', data.maxPlayers);
-    changedGame.append('GameTime', data.playingTime);
-    changedGame.append('AgePlayer', data.age);
-    changedGame.append('AuthorId', userId);
-    changedGame.append('Genre', data.genre);
-    changedGame.append('Artists', data.artists);
-    changedGame.append('AuthorsGame', data.authors);
-    changedGame.append('Publishers', data.publishers);
-    changedGame.append('Description', data.description);
+    changedGame.append("id", game.id);
+    if (data.ruleFile[0]) changedGame.append("rule", data.ruleFile[0]);
+    if (data.gameImg[0]) changedGame.append("avatarGame", data.gameImg[0]);
+    changedGame.append("name", data.name);
+    changedGame.append("rangeOfPlayersMin", data.minPlayers);
+    changedGame.append("rangeOfPlayersMax", data.maxPlayers);
+    changedGame.append("gameTime", data.playingTime);
+    changedGame.append("agePlayer", data.age);
+    changedGame.append("authorId", userId);
+    changedGame.append("genre", data.genre);
+    changedGame.append("artists", data.artists);
+    changedGame.append("authorsGame", data.authors);
+    changedGame.append("publishers", data.publishers);
+    changedGame.append("description", data.description);
 
-    axios.put(url + "BoardGames/" + game.id, changedGame, getConfig())
-      .then(() => navigate(`/games`))
+    axios
+      .put(`${url}boardGames/`, changedGame, getConfig())
+      .then(() => navigate(`/games`));
   };
 
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
       <fieldset className={style.mainInfoContainer}>
         <div className={style.mainGameInfo}>
-          <img className={style.gameImg} src={image ? image : "/assets/images/background.png"} alt="game" />
+          <img
+            className={style.gameImg}
+            src={image ? image : "/assets/images/background.png"}
+            alt="game"
+          />
           <div className={style.gameFilesName}>
             <GameFileInput
               register={register}
@@ -102,12 +111,19 @@ export const ChangeGameForm = ({ userId, url, game }) => {
                 <Genre width="26" height="26" fill="#057402" />
                 <span>Жанр</span>
               </label>
-              <select className={style.genreInput} name="genre" id="genre" {...register("genre", { required: true })}>
+              <select
+                className={style.genreInput}
+                name="genre"
+                id="genre"
+                {...register("genre", { required: true })}
+              >
                 <option value="Карточная">Карточная</option>
                 <option value="Ролевая">Ролевая</option>
                 <option value="Игра с костями">Игра с костями</option>
                 <option value="Абстрактная">Абстрактная</option>
-                <option value="Словестная (контакт)">Словестная (контакт)</option>
+                <option value="Словестная (контакт)">
+                  Словестная (контакт)
+                </option>
                 <option value="Бродилка">Бродилка</option>
               </select>
             </div>
@@ -125,7 +141,9 @@ export const ChangeGameForm = ({ userId, url, game }) => {
       <fieldset className={style.description}>
         <label htmlFor="description">
           Описание игры
-          {errors?.description && <span className="error">{errors.description.message}</span>}
+          {errors?.description && (
+            <span className="error">{errors.description.message}</span>
+          )}
         </label>
         <textarea
           id="description"
@@ -135,14 +153,18 @@ export const ChangeGameForm = ({ userId, url, game }) => {
           {...register("description", {
             required: "Заполните поле",
             maxLength: { value: 1560, message: "Максимум 1560 символов" },
-            minLength: { value: 250, message: "Минимум 250 символов" }
+            minLength: { value: 250, message: "Минимум 250 символов" },
           })}
-        >
-        </textarea>
+        ></textarea>
       </fieldset>
-      <button type='button' className={style.deleteButton} onClick={deleteHandler}>Удалить</button>
+      <button
+        type="button"
+        className={style.deleteButton}
+        onClick={deleteHandler}
+      >
+        Удалить
+      </button>
       <button className={style.changeButton}>Изменить</button>
-
     </form>
   );
-}
+};
