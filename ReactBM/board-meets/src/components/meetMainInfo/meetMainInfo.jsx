@@ -9,8 +9,8 @@ export const MeetMainInfo = ({ moreInfoHandler, meet, url }) => {
   return (
     <section className={style.mainInfo}>
       <div className={style.userInfo}>
-        <NavLink to={meet.authorId==user?.id?`/user/${user?.id}/${user?.role}`:`/user/${meet.authorId}`} className={style.userName}>@{meet.author.userName}</NavLink>
-        <img src={url + meet.author.avatarUrl} alt="userPhoto" className={style.userPhoto}></img>
+        <NavLink to={meet.authorId==user?.id?`/user/${user?.id}/${user?.roles[0].name}`:`/user/${meet.authorId}`} className={style.userName}>@{meet.author.username}</NavLink> 
+        <img src={url + 'static/avatar/'+ meet.author.avatarUrl} alt="userPhoto" className={style.userPhoto}></img> 
       </div>
       <div className={style.textInfo} onClick={moreInfoHandler}>
         <div className={style.textInfoItem}>

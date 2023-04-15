@@ -42,7 +42,7 @@ export const MeetMoreInfo = ({ meet, url}) => {
       <ul className={style.otherInfoList}>
         <li className={style.infoItem}> <p className={style.infoTitle}>Участники:</p></li>
         {meet.players.length ? meet.players.map((player) =>
-          <li className={style.infoItem} key={player?.id}><NavLink to={(player.id==user?.id) ? `/user/${player.id}/${player.role}` : `/user/${player.id}`}>@{player.userName}</NavLink></li>
+          <li className={style.infoItem} key={player?.id}><NavLink to={(player.id==user?.id) ? `/user/${player.id}/${player.roles[0].name}` : `/user/${player.id}`}>@{player.username}</NavLink></li>
         ) : <li className={style.infoItem}>Участников пока нет(</li>}
       </ul>
       <MeetButton meet={meet} url={url}/>
