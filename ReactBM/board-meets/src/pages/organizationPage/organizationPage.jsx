@@ -7,7 +7,6 @@ import { useCheckAuthorization } from "../../hooks/useCheckAuthorization";
 import style from "./organizationPage.module.css";
 
 export const OrganizationPage = ({ url }) => {
-
   let { userId } = useParams();
   const user = getUser();
   useCheckAuthorization(user?.id, userId);
@@ -17,8 +16,11 @@ export const OrganizationPage = ({ url }) => {
       <div className={style.title}>
         <Title content="Created Meets" />
       </div>
-      <NavLink to={`/user/${userId}/createMeet`}> <AddButton /></NavLink>
-      <MeetList url={url} meetUrl={url + "Users/CreatedMeet/" + userId}/>
+      <NavLink to={`/user/${userId}/createMeet`}>
+        {" "}
+        <AddButton />
+      </NavLink>
+      <MeetList url={url} meetUrl={url + "users/" + userId + "/createdMeet/"} />
     </>
   );
-}
+};
