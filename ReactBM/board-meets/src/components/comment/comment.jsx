@@ -12,7 +12,6 @@ export const Comment = ({ comment, delComment, url }) => {
     axios.delete(`${url}comments/${comment.id}`, getConfig())
     .then(() => delComment(comment))
   }
-
   
   return (
     <div className={style.container}>
