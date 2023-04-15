@@ -13,8 +13,8 @@ export const AvatarInput = ({ url, userId }) => {
   const submitHandler = (event) => {
     event.preventDefault();
     let data = new FormData();
-    data.append('file', file);
-    axios.post(url + `Users/SaveAvatar/${userId}`, data, getConfig())
+    data.append('image', file);
+    axios.post(url + `users/${userId}/uploadAvatar`, data, getConfig())
       .then(() => window.location.reload())
   }
   return (
