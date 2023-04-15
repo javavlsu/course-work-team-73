@@ -13,49 +13,60 @@ export const GamesList = ({ url }) => {
   const { gameName } = useParams();
   const navigate = useNavigate();
 
-  useEffect(
-    () => {
-      if (gameName) {
-        axios.get(url + `BoardGames/Search/${gameName}`)
-          .then((resp) => { setGames(resp.data) })
-          .catch((er) => console.log(er))
-      }
-    }, [gameName, url])
+  // useEffect(
+  //   () => {
+  //     if (gameName) {
+  //       axios.get(url + `BoardGames/Search/${gameName}`)
+  //         .then((resp) => { setGames(resp.data) })
+  //         .catch((er) => console.log(er))
+  //     }
+  //   }, [gameName, url])
 
   if (!games) {
-    axios.get(url + "BoardGames")
+    axios
+      .get(url + "boardGames/?offset=0&limit=10")
       .then((resp) => {
-        setGames(resp.data);
+        setGames(resp.data.content);
       })
-      .catch((er) => console.log(er))
+      .catch((er) => console.log(er));
   }
-  const searchHandler = (data) => {
-    if (data.genre == "Все игры") {
-      setGames(null);
-      navigate("/games");
-      return;
-    };
-    axios.get(url + `BoardGames/Filter/${data.genre}`, getConfig())
-      .then((response) => {
-        setGames(response.data);
-      })
-    navigate("/games");
-  }
+  // const searchHandler = (data) => {
+  //   if (data.genre == "Все игры") {
+  //     setGames(null);
+  //     navigate("/games");
+  //     return;
+  //   };
+  //   axios.get(url + `BoardGames/Filter/${data.genre}`, getConfig())
+  //     .then((response) => {
+  //       setGames(response.data);
+  //     })
+  //   navigate("/games");
+  // }
   const delGame = (game) => {
-    setGames(games.filter(elem => elem.id !== game.id));
-  }
+    setGames(games.filter((elem) => elem.id !== game.id));
+  };
 
   return (
     <div className={style.container}>
-      <div className={style.filter}>
-        <FilterGames register={register} handleSubmit={handleSubmit} searchHandler={searchHandler} />
-      </div>
+      {/* <div className={style.filter}>
+        <FilterGames
+          register={register}
+          handleSubmit={handleSubmit}
+          searchHandler={searchHandler}
+        />
+      </div> */}
 
       <ul className={style.gameList}>
-        {!!games?.length ? games.map((game) =>
-          <li key={game?.id} className={style.gamesItem}><GameCard url={url} game={game} delGame={delGame} /></li>
-        ) : <p className={style.notFound}>Игры не найдены 👽</p>}
+        {!!games?.length ? (
+          games.map((game) => (
+            <li key={game?.id} className={style.gamesItem}>
+              <GameCard url={url} game={game} delGame={delGame} />
+            </li>
+          ))
+        ) : (
+          <p className={style.notFound}>Игры не найдены 👽</p>
+        )}
       </ul>
     </div>
   );
-}
+};
