@@ -13,7 +13,7 @@ export const ChangeMeetPage = ({ url }) => {
   const user = getUser();
   useCheckAuthorization(user?.id, userId);
 
-  const meet = useDataGet(url + `Meets/${meetId}`)
+  const meet = useDataGet(url + `meets/${meetId}`)
   
   return (
     <div className={style.container}>

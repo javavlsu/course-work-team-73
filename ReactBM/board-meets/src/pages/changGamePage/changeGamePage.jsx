@@ -12,7 +12,7 @@ export const ChangeGamePage = ({ url }) => {
   const user = getUser();
   useCheckAuthorization(user?.id, userId);
 
-  const game = useDataGet(url + `BoardGames/${gameId}`)
+  const game = useDataGet(url + `boardGames/${gameId}`)
   
   return (
     <div className={style.container}>
