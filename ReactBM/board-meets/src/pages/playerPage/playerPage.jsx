@@ -13,7 +13,7 @@ export const PlayerPage = ({ url }) => {
   const user = getUser();
   useCheckAuthorization(user?.id, userId)
 
-  const [typeMeet, setTypeMeet] = useState({ type: "Created", url: url + "Meets/CreatedMeet/" + userId });
+  const [typeMeet, setTypeMeet] = useState({ type: "Created", url: url + "users/" + userId + "/createdMeet"});
 
   let linkAdd = null;
 
@@ -25,10 +25,10 @@ export const PlayerPage = ({ url }) => {
   const radioHandler = (value) => {
     switch (value) {
       case "1":
-        setTypeMeet({ type: "Created", url: url + "Meets/CreatedMeet/" + userId });
+        setTypeMeet({ type: "Created", url: url + "users/" + userId + "/createdMeet"});
         break;
       case "2":
-        setTypeMeet({ type: "Joined", url: url + "Meets/JoinedMeet/" + userId });
+        setTypeMeet({ type: "Joined", url: url + "users/" + userId + "/joinedMeet"});
         break;
     }
   }
