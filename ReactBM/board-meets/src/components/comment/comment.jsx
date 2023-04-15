@@ -9,17 +9,18 @@ export const Comment = ({ comment, delComment, url }) => {
   const user = getUser();
 
   const delHandler = () =>{
-    axios.delete(url + "BoardGames/DeleteComment/" + comment.id, getConfig())
+    axios.delete(`${url}comments/${comment.id}`, getConfig())
     .then(() => delComment(comment))
   }
 
+  
   return (
     <div className={style.container}>
       <div className={style.commentBody}>
-        <img src={url + comment.author.avatarUrl} alt="author" />
-        <NavLink to={`/user/${user?.id}`} className={style.author}>@{comment.author?.userName}</NavLink>
+        <img src={`${url}static/avatar/${comment.author.avatarUrl}`} alt="author" />
+        <NavLink to={`/user/${user?.id}`} className={style.author}>@{comment.author?.username}</NavLink>
         <ul className={style.rating}>
-          {user?.role=="admin"?<button className={style.delButton} onClick={delHandler}><Close width="8" height="8" /></button>:null}
+          {user&&(user?.roles[0].name=="admin")?<button className={style.delButton} onClick={delHandler}><Close width="8" height="8" /></button>:null}
           <li className={style.ratingItem}>
             <span>{comment.rating}</span>
             <Rating />
