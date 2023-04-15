@@ -8,11 +8,11 @@ import { CreateCommentForm } from "../createCommentForm/createCommentForm";
 import { Title } from "../title/title";
 import style from "./commentBlock.module.css";
 
-export const CommentBlock = ({ gameId, url }) => {
+export const CommentBlock = ({ game, url }) => {
   const [comments, setComments] = useState();
   const [commentForm, setCommentForm] = useState(false);
   const user = getUser();
-  const commentList = useDataGet(url + "BoardGames/Comments/" + gameId);
+  const commentList = game?.comments;
 
   const showHideForm = () => {
     setCommentForm(!commentForm);
@@ -33,8 +33,8 @@ export const CommentBlock = ({ gameId, url }) => {
     showHideForm();
   }
 
-  const addButton = !commentForm && user?.role == "player" ? <AddButton clickHandler={showHideForm} /> : null;
-  const createComment = commentForm ? <CreateCommentForm clickHandler={showHideForm} gameId={gameId} url={url} addComment={addComment}/> : null;
+  const addButton = !commentForm && user?.roles[0].name == "player" ? <AddButton clickHandler={showHideForm} /> : null;
+  const createComment = commentForm ? <CreateCommentForm clickHandler={showHideForm} gameId={game.id} url={url} addComment={addComment}/> : null;
 
 
   return (
