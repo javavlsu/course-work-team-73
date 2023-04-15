@@ -7,13 +7,13 @@ import style from "./gamePage.module.css";
 
 export const GamePage = ({url}) => {
   let { gameId } = useParams();
-  const game = useDataGet(url + "BoardGames/" + gameId);
+  const game = useDataGet(url + "boardGames/" + gameId);
 
   return (
     <div className={style.container}>
       <div className={style.articleItem}><GameReadCard game={game} url={url}/></div>
       <div className={style.articleItem}><Description game={game} url={url}/></div>
-      <CommentBlock gameId={gameId} url={url}/>
+      <CommentBlock game={game} url={url}/>
     </div>
   );
 }
