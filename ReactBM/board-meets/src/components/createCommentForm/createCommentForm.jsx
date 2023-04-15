@@ -32,7 +32,7 @@ export const CreateCommentForm = ({ clickHandler ,gameId, url, addComment}) => {
       "authorId": user.id,
       "gameId": gameId
     };
-    axios.post(url + `BoardGames/CreateComment`, body, getConfig())
+    axios.post(url + `comments/`, body, getConfig())
       .then((resp) =>addComment(resp.data))
   }
   const ratingChanged = (newRating) => {
