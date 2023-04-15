@@ -7,7 +7,7 @@ import { getUser } from "../../helpers/getUser";
 
 export const UserMainInfo = ({ id, url }) => {
 	const [editAvatar, setEditAvatar] = useState(false);
-	const user = useDataGet(url + "Users/" + id)
+	const user = useDataGet(url + "users/" + id)
 	
 	let fileInput = null;
 	let btnEdit = null;
@@ -25,12 +25,12 @@ export const UserMainInfo = ({ id, url }) => {
 
 	return (
 		<div className={style.mainContainer}>
-			<img src={url + user?.avatarUrl} alt="userPhoto" className={style.avatar} />
+			<img src={url + 'static/avatar/' + user?.avatarUrl} alt="userPhoto" className={style.avatar} />
 			<div className={style.container}>
 				{btnEdit}
 				<div className={style.userInfoContainer}>
 					<ul className={style.userNameStatus}>
-						<li className={style.userName}>@{user?.userName}</li>
+						<li className={style.userName}>@{user?.username}</li>
 						<li className={style.userStatus}>{user?.aboutMe}</li>
 						<li>{fileInput}</li>
 					</ul>
