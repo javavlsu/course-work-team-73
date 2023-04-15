@@ -34,12 +34,12 @@ export const ChangeMeetForm = ({ url, meet }) => {
     meet.peopleCountMax = data.players;
     meet.duration = data.maxTime;
     meet.link = data.communication;
-    meet.date = data.date + "T" + data.time;
+    meet.date = data.date + " " + data.time + ":00";
     meet.location = data.location;
     meet.city = data.city;
     meet.players = playerList;
     meet.games = `${JSON.stringify(gameList)}`;
-    axios.put(url + `Meets/${meet.id}`, meet, getConfig())
+    axios.put(url + `meets/`, meet, getConfig())
       .then(() => navigate(`/`))
   };
 
