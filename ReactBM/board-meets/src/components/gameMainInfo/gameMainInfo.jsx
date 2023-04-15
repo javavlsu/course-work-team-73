@@ -3,7 +3,7 @@ import style from "./gameMainInfo.module.css";
 export const GameMainInfo = ({game, url}) => {
 	return (
 		<div className={style.mainInfo}>
-			<img className={style.gameImg} src={url + game?.gameAvatar} alt="game" />
+			<img className={style.gameImg} src={url + 'static/bgAvatar/'+game?.gameAvatar} alt="game" />
 			<div className={style.gameInfo}>
 				<p className={style.gameName}>{game?.name}</p>
 				<ul>
