@@ -11,6 +11,7 @@
     width: 285px;
     height: 28px;
     margin-top: 39px;
+    cursor: pointer;
 }
 .meetButton:active{
     background: #5bb758;
