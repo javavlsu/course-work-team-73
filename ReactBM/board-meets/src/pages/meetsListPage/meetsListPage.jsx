@@ -14,8 +14,8 @@ export const MeetsListPage = ({ url }) => {
   const [meets, setMeets] = useState();
   const { handleSubmit, register } = useForm();
 
-  let meetList = useDataGet(url + "Meets");
-  useEffect(() => { if (meetList) { setMeets(meetList); } }, [meetList]);
+  let meetList = useDataGet(url + "meets/?offset=0&limit=10");
+  useEffect(() => { if (meetList) { setMeets(meetList.content); } }, [meetList]);
 
   const searchHandler = (data) => {
     let body = data.date ? { city: data.city, date: data.date } : { city: data.city };
