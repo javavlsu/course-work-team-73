@@ -9,7 +9,7 @@ export const GameReadCard = ({game, url}) => {
       <GameMainInfo game={game} url={url}/>
       <div className={style.moreInfo}>
         <div className={style.infoBlock}>
-          <p className={style.author}>@{game?.author.userName}</p>
+          <p className={style.author}>@{game?.author.username}</p>
           <div className={style.rating}><Rating />{game?.ratingUser}</div>
           <div className={style.community}>
             <p>Community</p>
