@@ -1,49 +1,69 @@
 import { useNavigate } from "react-router-dom";
 import style from "./registration.module.css";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { RegistrationFirstStep } from "../../components/registrationFirstStep/registrationFirstStep";
 import { useState } from "react";
 import { RegistrationSecondStep } from "../../components/registrationSecondStep copy/registrationSecondStep";
 
-
-
 export const Registration = ({ url, buttonHandler }) => {
-
-  const { register, watch, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [regStep, setRegStep] = useState("firstStep");
 
   const firstStepHandler = () => {
     setRegStep("secondStep");
-  }
+  };
   const secondStepHandler = () => {
     setRegStep("firstStep");
-  }
+  };
 
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const body = {
-      user: {
-        email: data.email,
-        userName: data.nickname,
-        name: data.name + " " + data.surname,
-        role: data.role,
-        city: data.city,
-        aboutMe: data.aboutMe,
-      },
-      password: data.password
-    }
+      email: data.email,
+      username: data.nickname,
+      name: data.name + " " + data.surname,
+      roles:
+        data.role === "player"
+          ? [{ id: 2 }]
+          : data.role === "publisher"
+          ? [{ id: 3 }]
+          : [{ id: 4 }],
+      city: data.city,
+      aboutMe: data.aboutMe,
+      password: data.password,
+    };
 
-    axios.post(url + `Users/Registration`, body)
-      .then((response) => {
-        buttonHandler(response.data.authUser, response.data.token);
-        navigate(`/user/${response.data.authUser.id}/${response.data.authUser.role}`);
-      })
+    axios.post(url + `users/register`, body).then((response) => {
+      buttonHandler(response.data.authUser, response.data.token);
+      navigate(`/user/${response.data.authUser.id}/${data.role}`);
+    });
   };
 
-  let form = regStep == "firstStep" ? <RegistrationFirstStep register={register} firstStepHandler={firstStepHandler} handleSubmit={handleSubmit} errors={errors} />
-    : <RegistrationSecondStep register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} secondStepHandler={secondStepHandler} errors={errors} watch={watch} />;
+  let form =
+    regStep == "firstStep" ? (
+      <RegistrationFirstStep
+        register={register}
+        firstStepHandler={firstStepHandler}
+        handleSubmit={handleSubmit}
+        errors={errors}
+      />
+    ) : (
+      <RegistrationSecondStep
+        register={register}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        secondStepHandler={secondStepHandler}
+        errors={errors}
+        watch={watch}
+      />
+    );
 
   return (
     <div className={style.container}>
@@ -55,9 +75,7 @@ export const Registration = ({ url, buttonHandler }) => {
         </div>
 
         {form}
-
       </div>
     </div>
-
   );
-}
+};
