@@ -19,13 +19,13 @@ export const CreateMeetForm = ({ userId, url }) => {
       peopleCountMax: data.players,
       duration: data.maxTime,
       link: data.communication,
-      date: data.date + "T" + data.time,
+      date: data.date + " " + data.time + ":00",
       city:data.city,
       location: data.location,
       games: `${JSON.stringify(gameList)}`,
       authorId: userId
     };
-    axios.post(url + "Meets", body, getConfig())
+    axios.post(url + "meets/", body, getConfig())
       .then(() => navigate(`/`))
   };
 
