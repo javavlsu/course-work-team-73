@@ -29,18 +29,18 @@ export const CreateGameForm = ({ userId, url }) => {
     let game = new FormData();
     game.append('rule', data.ruleFile[0]);
     game.append('avatarGame', data.gameImg[0]);
-    game.append('Name', data.name);
-    game.append('RangeOfPlayersMin', data.minPlayers);
-    game.append('RangeOfPlayersMax', data.maxPlayers);
-    game.append('GameTime', data.playingTime);
-    game.append('AgePlayer', data.age);
-    game.append('AuthorId', userId);
-    game.append('Genre', data.genre);
-    game.append('Artists', data.artists);
-    game.append('AuthorsGame', data.authors);
-    game.append('Publishers', data.publishers);
-    game.append('Description', data.description);
-    axios.post(url + "BoardGames", game, getConfig())
+    game.append('name', data.name);
+    game.append('rangeOfPlayersMin', data.minPlayers);
+    game.append('rangeOfPlayersMax', data.maxPlayers);
+    game.append('gameTime', data.playingTime);
+    game.append('agePlayer', data.age);
+    game.append('authorId', userId);
+    game.append('genre', data.genre);
+    game.append('artists', data.artists);
+    game.append('authorsGame', data.authors);
+    game.append('publishers', data.publishers);
+    game.append('description', data.description);
+    axios.post(url + "boardGames/", game, getConfig())
       .then(() => navigate(`/games`))
   };
   return (
