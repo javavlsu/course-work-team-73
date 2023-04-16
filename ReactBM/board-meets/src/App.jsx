@@ -10,17 +10,18 @@ import { CreateMeetPage } from "./pages/createMeetPage/createMeetPage";
 import { Registration } from "./pages/registration/registration";
 import Cookies from "universal-cookie";
 import { ChangeMeetPage } from "./pages/changeMeetPage/changeMeetPage";
-import { GamesList } from "./pages/gamesList/gamesList";
+import { GamesListPage } from "./pages/gamesListPage/gamesListPage";
 import { GamePage } from "./pages/gamePage/gamePage";
 import { PublisherPage } from "./pages/publisherPage/publisherPage";
 import { CreateGamePage } from "./pages/createGamePage/createGamePage";
 import { ChangeGamePage } from "./pages/changGamePage/changeGamePage";
 import { useState } from "react";
 import { getUser } from "./helpers/getUser";
+import { RecommendationPage } from "./pages/recommendationPage.jsx/recommendationPage";
 
 export const App = () => {
   const cookies = new Cookies();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(getUser());
 
   const url = "http://25.33.170.235/api/";
 
@@ -42,7 +43,6 @@ export const App = () => {
     cookies.set("token", 0, { path: "/" });
     setUser(getUser());
   };
-
   return (
     <>
       <Routes>
@@ -52,9 +52,19 @@ export const App = () => {
           element={<MainLayout exitHandler={exitHandler} />}
         >
           <Route path="/" element={<MeetsListPage url={url} />} />
-          <Route path="/games" element={<GamesList url={url} />} />
-          <Route path="/games/:gameName" element={<GamesList url={url} />} />
+          <Route path="/games" element={<GamesListPage url={url} />} />
+          <Route path="/games/:gameName" element={<GamesListPage url={url} />} />
           <Route path="/game/:gameId" element={<GamePage url={url} />} />
+          <Route
+            path="/recommendation"
+            element={
+              user !== '0' ? (
+                <RecommendationPage url={url} userId={user.id} />
+              ) : (
+                <Navigate replace to="/logIn" />
+              )
+            }
+          />
           <Route path="/user/:userId" element={<UserPageLayout url={url} />}>
             <Route path="createMeet" element={<CreateMeetPage url={url} />} />
             <Route
