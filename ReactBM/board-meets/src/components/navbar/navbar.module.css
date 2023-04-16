@@ -42,12 +42,13 @@
 }
 
 .linkList {
-    width: 350px;
+    display: flex;
     height: 100%;
 }
 
 .linkListLink,
 .linkActive {
+    margin-right: 20px;
     display: inline-flex;
     font-size: 25px;
     font-weight: 300;
