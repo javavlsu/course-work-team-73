@@ -1,7 +1,5 @@
 .container {
-  max-width: 1081px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 50%;
 }
 
 .meetsList {
@@ -19,7 +17,7 @@
 }
 
 .inputText {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 9px;
   width: 271px;
@@ -28,19 +26,18 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 100%;
-  color: #9E9A9A;
+  color: #9e9a9a;
   box-sizing: border-box;
   padding: 0 26px 0 10px;
 }
 
 .inputText:focus {
   outline: 3px solid #057402;
-
 }
 
 .filter {
   display: flex;
-  background-color: #64C661;
+  background-color: #64c661;
   width: inherit;
   height: 67px;
   border-radius: 44px;
@@ -61,12 +58,12 @@
 }
 
 .button {
-  background: #EDFFEC;
+  background: #edffec;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 66px;
   width: 84px;
   height: 29px;
-  color: #64C661;
+  color: #64c661;
   font-weight: 400;
   font-size: 16px;
   line-height: 100%;
@@ -76,7 +73,6 @@
 .button:active {
   background: #d3e8d2;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
-
 }
 
 .inputIcon {
@@ -86,7 +82,7 @@
 }
 
 .date {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 9px;
   border: 0;
@@ -98,7 +94,6 @@
   font-size: 15px;
   line-height: 100%;
   color: black;
-
 }
 
 .date:focus {
@@ -113,7 +108,7 @@
   position: relative;
 }
 
-.notFound{
+.notFound {
   font-size: 25px;
   color: #057402;
 }

@@ -2,21 +2,22 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FilterMeets } from "../../components/filterMeets/filterMeets";
-import { MeetCard } from "../../components/meetCard/meetCard";
+import { FilterMeets } from "../../components/meets/filterMeets/filterMeets";
+import { MeetCard } from "../../components/meets/meetCard/meetCard";
 import { MeetsContext } from "../../helpers/meetsContext";
-import { getConfig } from "../../helpers/getConfig";
 import { useDataGet } from "../../hooks/useDataGet";
 import style from "./meetsListPage.module.css";
 import { getPageCount, getPagesArray } from "../../helpers/pages";
 import { Pagination } from "../../components/pagination/pagination";
+import { useTranslation } from "react-i18next";
 
 export const MeetsListPage = ({ url }) => {
   const [meets, setMeets] = useState();
   const [totalPages, setTotalPages] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(1);
   const [page, setPage] = useState(0);
   const pageArray = getPagesArray(totalPages);
+  const { t } = useTranslation();
   const { handleSubmit, register } = useForm();
 
   let meetList = useDataGet(url + `meets/?offset=${page}&limit=${limit}`);
@@ -28,12 +29,11 @@ export const MeetsListPage = ({ url }) => {
   }, [meetList]);
 
   const searchHandler = (data) => {
-    let body = data.date
-      ? { city: data.city, date: data.date }
-      : { city: data.city };
-    axios.post(url + "Meets/Search", body, getConfig()).then((response) => {
-      setMeets(response.data);
-    });
+    axios
+      .get(url + `meets/search/${data.city}`)
+      .then((response) => {
+        setMeets(response.data);
+      });
   };
 
   const deleteMeet = (meet) => {
@@ -52,7 +52,7 @@ export const MeetsListPage = ({ url }) => {
 
   const getNewPage = (page) => {
     setPage(page);
-  }
+  };
 
   return (
     <MeetsContext.Provider value={{ deleteMeet, changeMeet }}>
@@ -70,11 +70,10 @@ export const MeetsListPage = ({ url }) => {
               </li>
             ))
           ) : (
-            <p className={style.notFound}>Мероприятия не найдены 👽</p>
+            <p className={style.notFound}>{t("meetsPage.notFound")}</p>
           )}
         </ul>
-        <Pagination pageArray={pageArray} getNewPage={getNewPage} page={page}/>
-
+        <Pagination pageArray={pageArray} getNewPage={getNewPage} page={page} />
       </div>
     </MeetsContext.Provider>
   );

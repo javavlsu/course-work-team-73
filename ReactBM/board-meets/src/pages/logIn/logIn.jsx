@@ -4,8 +4,10 @@ import { Back, Write } from "../../components/icons/icons";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const LogIn = ({ buttonHandler, url }) => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -24,7 +26,9 @@ export const LogIn = ({ buttonHandler, url }) => {
       .then(() => navigate("/"))
       .catch((err) => {
         if (err.response) {
-          setErrMes(<p class="error">Неверный пароль или логин </p>);
+          setErrMes(
+            <p class="error">{t("authorizationPage.form.errors.wrong")}</p>
+          );
         }
       });
   };
@@ -38,15 +42,17 @@ export const LogIn = ({ buttonHandler, url }) => {
           <p className={style.subTitle}>for your fun)</p>
         </div>
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-          <p className={style.formTitle}>Вход</p>
+          <p className={style.formTitle}>{t("authorizationPage.logIn")}</p>
           <div className={style.formInput}>
-            <label className={style.mandatoryLabel}>Обязательно</label>
+            <label className={style.mandatoryLabel}>
+              {t("authorizationPage.form.mandatory")}
+            </label>
             <input
               type="input"
               className={style.input}
               placeholder=" "
               {...register("userName", {
-                required: "введите свой никнейм",
+                required: t("authorizationPage.form.errors.nickname"),
                 pattern: {
                   value: /^([a-zA-z0-9_]{1,23})$/,
                   message: "никнейм введен некорректно",
@@ -56,38 +62,44 @@ export const LogIn = ({ buttonHandler, url }) => {
             {errors?.userName && (
               <p className="error">{errors.userName.message}</p>
             )}
-            <label className={style.swimLabel}>Никнейм</label>
+            <label className={style.swimLabel}>
+              {t("authorizationPage.form.nickname")}
+            </label>
           </div>
           <div className={style.formInput}>
-            <label className={style.mandatoryLabel}>Обязательно</label>
+            <label className={style.mandatoryLabel}>
+              {t("authorizationPage.form.mandatory")}
+            </label>
             <input
               type="password"
               className={style.input}
               autoComplete="off"
               placeholder=" "
               {...register("password", {
-                required: "введите свой пароль",
+                required: t("authorizationPage.form.errors.password"),
               })}
             />
             {errors?.password && (
               <p className="error">{errors.password.message}</p>
             )}
-            <label className={style.swimLabel}>Пароль</label>
+            <label className={style.swimLabel}>
+              {t("authorizationPage.form.password")}
+            </label>
           </div>
           {errMes}
           <input
             type="submit"
             className={style.formButton}
-            value="Вход"
+            value={t("authorizationPage.logIn")}
           ></input>
           <div className={style.links}>
             <NavLink to="/" className={style.navLink}>
               <Back />
-              Продолжить без регистрации
+              {t("authorizationPage.continue")}
             </NavLink>
             <NavLink to="/registration" className={style.navLink}>
               <Write stroke="black" width="13" height="13" />
-              Регистрация
+              {t("authorizationPage.registration")}
             </NavLink>
           </div>
         </form>

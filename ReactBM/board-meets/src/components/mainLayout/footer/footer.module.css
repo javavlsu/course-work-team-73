@@ -1,0 +1,20 @@
+.footer{
+    height: 91px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    max-width: 100%;
+    background-color: #C8FEC7;
+    margin-top: -91px;
+}
+.flagBtn, .flagBtnActive{
+    background-color: transparent;
+    border-radius: 3px;
+    border: 0;
+    width: max-content;   
+    cursor: pointer;
+}
+.flagBtnActive{
+    background-color: #aae98d;
+}

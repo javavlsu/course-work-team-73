@@ -3,9 +3,8 @@ export const stringToDate = (date) => {
   let realDate = new Date(date);
   return (realDate);
 };
-export const getMonthDay = (date) => {
-
-  let months = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+export const getMonthDay = (date, t) => {
+  let months = [t("meetsPage.meet.months.january"), "Февраля", "Марта", "Апреля", t("meetsPage.meet.months.may"), "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
   let realDate = new Date(date);
 
   return (realDate.getDate().toString() + " " + months[realDate.getMonth()]);
