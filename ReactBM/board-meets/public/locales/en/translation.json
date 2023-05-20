@@ -1,0 +1,287 @@
+{
+  "navbar": {
+    "recomendation": "Recomendation",
+    "meets": "Meets",
+    "games": "Games",
+    "logIn": "LogIn"
+  },
+  "meetsPage": {
+    "notFound": "No meets found 👽",
+    "filter": {
+      "inputCity": "Enter city",
+      "filterBtn": "Search"
+    },
+    "meet": {
+      "months": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "city": "c.",
+      "notFoundLink": "No link provided",
+      "games": "Games:",
+      "members": "Members:",
+      "notFoundMembers": "No members yet(",
+      "hour": "h.",
+      "minute": "min.",
+      "meetButton": {
+        "delete": "Delete",
+        "join": "Join",
+        "leave": "Leave",
+        "openSet": "Open set",
+        "closeSet": "Close set"
+      }
+    },
+    "form": {
+      "titleCreate": "Create Meet",
+      "titleChange": "Change Meet",
+      "createBtn": "Create",
+      "changeBtn": "Change",
+      "inputName": {
+        "name": "Meet name",
+        "placeholder": "Meet name",
+        "errors": {
+          "required": "Enter meet name",
+          "maxLength": "max.length-20",
+          "minLength": "min.length-5"
+        }
+      },
+      "inputMembersCount": {
+        "name": "Number of players and duration (min.)",
+        "errors": {
+          "required": "enter a number",
+          "pattern": "enter an integer",
+          "maxValue": "max value-250",
+          "minValue": "min.value-1"
+        }
+      },
+      "inputMeetTime": {
+        "errors": {
+          "required": "enter a number",
+          "pattern": "enter number",
+          "maxValue": "max value-1200",
+          "minValue": "min.value-10"
+        }
+      },
+      "inputDateTime": {
+        "name": "Time and place",
+        "errors": {
+          "requiredDate": "select a date",
+          "requiredTime": "select time",
+          "requiredCity": "enter city",
+          "cityMaxLength": "max length-25",
+          "requiredLocation": "write a location",
+          "locationMaxLength": "max.length-35"
+        },
+        "placeholders": {
+          "city": "London",
+          "location": "Backer street, 221b"
+        }
+      },
+      "inputLink": {
+        "name": "Contact link)))",
+        "maxLength": "max length-25"
+      },
+      "inputGames": {
+        "name": "What games will there be?",
+        "placeholder": "Game name"
+      },
+      "inputMembers": {
+        "name": "Members",
+        "notMembers": "No members yet"
+      }
+    }
+  },
+  "boardGamesPage": {
+    "form": {
+      "filterBtn": "Search",
+      "changeBtn": "Change",
+      "deleteBtn": "Delete",
+      "titleCreate": "Create article",
+      "titleChange": "Change article",
+      "textarea": {
+        "placeholder": "Even the simplest board games have a beneficial effect on any person, developing visual memory, attention, ingenuity, logic, imagination and imaginative thinking. With the help of board games, children begin to have a different attitude towards many school sciences that they don’t like at all at school. Math becomes an interesting quest. Geography turns into an exciting journey through cities and countries. Foreign languages are learned several times faster through a board game. What can we say about the ability to think logically, calculate moves a few steps ahead, and analyze the information received. Games also help to develop perseverance and attentiveness, the desire to move towards the goal, overcoming certain obstacles and obstacles.",
+        "errors": {
+          "required": "Fill in the field",
+          "minLength": "Minimum 250 characters",
+          "maxLength": "Maximum 1560 characters"
+        }
+      },
+      "inputName": {
+        "name": "Name",
+        "placeholder": "Puppies Go!"
+      },
+      "inputAuthor": {
+        "name": "Author",
+        "nameS": "Author(s)",
+        "placeholder": "John Smith, Kevin Brown"
+      },
+      "inputPublisher": {
+        "name": "Publisher",
+        "nameS": "Publisher(s)"
+      },
+      "inputArtist": {
+        "nameS": "Artist(s)",
+        "placeholder": "John Smith, Kevin Brown"
+      },
+      "inputGameAvatar": {
+        "default": "No file selected",
+        "previously": "Previously attached file",
+        "message": "picture should preferably be square"
+      },
+      "inputRuleFile": {
+        "default": "No file selected",
+        "previously": "Previously attached file",
+        "message": "insert game rules in pdf format"
+      },
+      "inputWeight": "Weight",
+      "inputRating": "Rating",
+      "inputGameTime": "Game time, min.",
+      "inputMembersCount": {
+        "name": "Number of players",
+        "to": "to"
+      },
+      "ageInput": "Age+",
+      "selectGenre": {
+        "title": "Genre",
+        "default": "Game genre",
+        "cardGame": "Card game",
+        "roleGame": "Roleplay",
+        "diceGame": "Dice game",
+        "abstractGame": "Abstract game",
+        "verbalGame": "Verbal (contact)",
+        "walkerGame": "Walker game"
+      },
+      "selectSortBy": {
+        "default": "Sort by",
+        "rating": "Rating",
+        "weight": "Weight",
+        "age": "Age",
+        "gameTime": "Game time"
+      }
+    },
+    "gameCard": {
+      "readBtn": "Read",
+      "authors": "Author(s)",
+      "artists": "Artist(s)",
+      "publishers": "Publisher(s)",
+      "description": "Description",
+      "gameRule": "Game rules",
+      "comments": "Comments",
+      "commentsNotFound": "No comments yet 👽"
+    },
+    "minutes+": "+ minutes",
+    "boardGamesNotFound": "No games found 👽"
+  },
+  "authorizationPage": {
+    "logIn": "Login",
+    "continue": "Continue without registration",
+    "registration": "Registration",
+    "form": {
+      "mandatory": "Mandatory",
+      "nickname": "Nickname",
+      "password": "Password",
+      "errors": {
+        "nickname": "enter your nickname",
+        "password": "enter your password",
+        "wrong": "wrong password or login"
+      }
+    }
+  },
+  "registrationPage": {
+    "title": "Registration",
+    "required": "Required",
+    "firstStepForm": {
+      "inputNickname": {
+        "title": "Nickname",
+        "errors": {
+          "required": "enter your nickname",
+          "pattern": "allowed characters are (A-Z,a-z,0-9,_)",
+          "maxLength": "max.length-15",
+          "minLength": "min.length-3"
+        }
+      },
+      "inputName": {
+        "title": "Name",
+        "errors": {
+          "required": "enter your name",
+          "pattern": "invalid input",
+          "maxLength": "max.length-23",
+          "minLength": "min.length-2"
+        }
+      },
+      "inputSurname": {
+        "title": "Last name",
+        "errors": {
+          "required": "enter your last name",
+          "pattern": "invalid input",
+          "maxLength": "max.length-30",
+          "minLength": "min.length-2"
+        }
+      },
+      "inputAboutMe": {
+        "title": "About me...",
+        "errors": {
+          "required": "enter information about yourself",
+          "maxLength": "max.length-40",
+          "minLength": "min.length-3"
+        }
+      },
+      "inputCity": {
+        "title": "City",
+        "errors": {
+          "required": "enter your city",
+          "pattern": "invalid input",
+          "maxLength": "max.length-15",
+          "minLength": "min.length-3"
+        }
+      }
+    },
+    "secondStepForm": {
+      "inputEmail": {
+        "errors": {
+          "required": "enter your email",
+          "pattern": "email entered incorrectly"
+        }
+      },
+      "inputRole": {
+        "title": "Role"
+      },
+      "inputPassword": {
+        "title": "Password",
+        "returnPass": "retype password",
+        "errors": {
+          "required": "enter password",
+          "pattern": "should include (A-Z,a-z,0-9,(*/@#%$^&))",
+          "maxLength": "max.length-15",
+          "minLength": "min.length-6",
+          "watch": "passwords don't match"
+        }
+      }
+    },
+    "continueBtn": "Continue",
+    "continueWithoutRegBtn": "Continue Without Registration",
+    "registrationBtn": "Register",
+    "backBtn": "Back"
+  },
+  "userPage": {
+    "created": "Created",
+    "joined": "Joined",
+    "createdGames": "Created Articles",
+    "createdMeets": "Created Meets",
+    "city": "с.",
+    "avatar": {
+      "button": "Submit",
+      "default": "No file selected"
+    }
+  }
+}
