@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import style from "./registration.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { RegistrationFirstStep } from "../../components/registrationFirstStep/registrationFirstStep";
+import { RegistrationFirstStep } from "../../components/registration/registrationFirstStep/registrationFirstStep";
 import { useState } from "react";
-import { RegistrationSecondStep } from "../../components/registrationSecondStep copy/registrationSecondStep";
+import { RegistrationSecondStep } from "../../components/registration/registrationSecondStep copy/registrationSecondStep";
 
 export const Registration = ({ url, buttonHandler }) => {
   const {
@@ -40,9 +40,17 @@ export const Registration = ({ url, buttonHandler }) => {
       password: data.password,
     };
 
-    axios.post(url + `users/register`, body).then((response) => {
-      buttonHandler(response.data.authUser, response.data.token);
-      navigate(`/user/${response.data.authUser.id}/${data.role}`);
+    axios.post(url + `users/register`, body).then(() => {
+      let body = {
+        username: data.nickname,
+        password: data.password,
+      };
+      axios
+        .post(url + "auth/login", body, { withCredentials: false })
+        .then((response) => {
+          buttonHandler(response.data.authUser, response.data.token);
+          navigate(`/user/${response.data.authUser.id}/${data.role}`);
+        });
     });
   };
 
