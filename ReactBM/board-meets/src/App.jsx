@@ -22,7 +22,6 @@ import { RecommendationPage } from "./pages/recommendationPage.jsx/recommendatio
 export const App = () => {
   const cookies = new Cookies();
   const [user, setUser] = useState(getUser());
-
   const url = "http://25.33.170.235/api/";
 
   const buttonHandler = (user, token) => {
@@ -43,6 +42,7 @@ export const App = () => {
     cookies.set("token", 0, { path: "/" });
     setUser(getUser());
   };
+  console.log(user);
   return (
     <>
       <Routes>
@@ -58,7 +58,7 @@ export const App = () => {
           <Route
             path="/recommendation"
             element={
-              user !== '0' ? (
+              user && user !== '0' ? (
                 <RecommendationPage url={url} userId={user.id} />
               ) : (
                 <Navigate replace to="/logIn" />
