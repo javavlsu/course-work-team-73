@@ -1,9 +1,9 @@
 package BoardMeet.Backend.Controller;
 
+import BoardMeet.Backend.DTO.AuthenticationRequestDTO;
 import BoardMeet.Backend.Model.User;
 import BoardMeet.Backend.Security.jwt.JwtTokenProvider;
 import BoardMeet.Backend.Service.UserService;
-import BoardMeet.Backend.DTO.AuthenticationRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +32,7 @@ public class AuthenticationController {
         this.userService = userService;
     }
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto){
+    public ResponseEntity login(@RequestBody AuthenticationRequestDTO requestDto){
         try{
             String username = requestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,requestDto.getPassword()));
@@ -43,7 +43,7 @@ public class AuthenticationController {
             }
             String token = jwtTokenProvider.createToken(username);
             Map<Object,Object> response = new HashMap<>();
-            response.put("username",username);
+            response.put("authUser",user);
             response.put("token",token);
             return  ResponseEntity.ok(response);
         }catch (AuthenticationException e){

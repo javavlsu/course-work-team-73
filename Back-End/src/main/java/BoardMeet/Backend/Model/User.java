@@ -2,14 +2,16 @@ package BoardMeet.Backend.Model;
 
 import BoardMeet.Backend.DTO.UserRegisterDTO;
 import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 
 import java.util.Set;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Entity
 @Table(name="users")
 public class User extends  BaseEntity{
@@ -17,6 +19,7 @@ public class User extends  BaseEntity{
     @Column
     private String email;
     @Column
+    @JsonIgnore
     private  String password;
     @Column(name ="user_name")
     private  String username;
@@ -35,14 +38,17 @@ public class User extends  BaseEntity{
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles;
     @OneToMany(mappedBy = "authorId")
+
     private Set<BoardGame> CreateBoardGames;
 
 
     @ManyToMany(mappedBy = "players")
-    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.TRUE)
     private Set<Meet> JoinedMeets;
     @OneToMany(mappedBy = "authorId")
+
     private Set<Meet> CreatedMeets;
+
 
     public String getEmail() {
         return email;
@@ -117,6 +123,8 @@ public class User extends  BaseEntity{
         this.roles = roles;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "CreateBoardGames")
     public Set<BoardGame> getCreateBoardGames() {
         return CreateBoardGames;
     }
@@ -124,7 +132,8 @@ public class User extends  BaseEntity{
     public void setCreateBoardGames(Set<BoardGame> createBoardGames) {
         CreateBoardGames = createBoardGames;
     }
-
+    @JsonIgnore
+    @JsonProperty(value = "JoinedMeets")
     public Set<Meet> getJoinedMeets() {
         return JoinedMeets;
     }
@@ -132,7 +141,8 @@ public class User extends  BaseEntity{
     public void setJoinedMeets(Set<Meet> joinedMeets) {
         JoinedMeets = joinedMeets;
     }
-
+    @JsonIgnore
+    @JsonProperty(value = "CreatedMeets")
     public Set<Meet> getCreatedMeets() {
         return CreatedMeets;
     }

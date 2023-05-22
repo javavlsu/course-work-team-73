@@ -12,16 +12,15 @@ import java.util.Date;
 import java.util.Set;
 
 public class MeetChangeDTO implements Serializable {
-    @NotEmpty
-    private  Long Id;
     @Length(min = 2)
     private String name;
+    @NotNull
+    private  Long Id;
     @Min(2)
     private int peopleCountMax;
     @Min(1)
     private int duration;
     private String link;
-    @NotEmpty
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
     @NotEmpty

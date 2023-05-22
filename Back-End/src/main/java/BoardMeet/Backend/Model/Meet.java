@@ -3,6 +3,7 @@ package BoardMeet.Backend.Model;
 import BoardMeet.Backend.DTO.MeetChangeDTO;
 import BoardMeet.Backend.DTO.MeetCreateDTO;
 import com.fasterxml.jackson.annotation.*;
+import org.apache.commons.lang3.time.DateUtils;
 
 import javax.persistence.*;
 
@@ -41,6 +42,11 @@ public class Meet extends  BaseEntity{
     private  String city;
     @Column(name = "author_id")
     private Long authorId;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id", insertable=false, updatable=false)
+
+    private User author;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "meet_user_players",
@@ -60,7 +66,8 @@ public class Meet extends  BaseEntity{
         this.games = meetCreateDTO.getGames();
         this.location = meetCreateDTO.getLocation();
         this.peopleCount = 0;
-        this.state = MeetState.STARTOPEN;
+        this.state = MeetState.RECRUITING;
+        refreshState();
     }
     public void change(MeetChangeDTO meetChangeDTO){
         this.name = meetChangeDTO.getName();
@@ -72,21 +79,25 @@ public class Meet extends  BaseEntity{
         this.city = meetChangeDTO.getCity();
         this.duration = meetChangeDTO.getDuration();
         this.players = meetChangeDTO.getPlayers();
+        refreshState();
     }
     public void refreshState() {
-        Date now = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(calendar.MINUTE,duration);
-        if (now.compareTo(calendar.getTime())>0)
+        Date now = DateUtils.addHours(new Date(),3);
+
+        Calendar stop = Calendar.getInstance();
+
+        stop.setTime(date);
+        stop.add(stop.MINUTE,duration+60*3);
+
+        if (now.compareTo(stop.getTime())>0)
         {
             state = MeetState.FINISHED;
         }
-        else if (peopleCount < peopleCountMax && now.compareTo(date)<0)
+        else if (peopleCount < peopleCountMax && now.compareTo(this.date)<0)
         {
             state = MeetState.RECRUITING;
         }
-        else if (peopleCount >= peopleCountMax && now.compareTo(date)<0)
+        else if (peopleCount >= peopleCountMax && now.compareTo(this.date)<0)
         {
             state = MeetState.RECRUITINGFULL;
         }
@@ -194,5 +205,13 @@ public class Meet extends  BaseEntity{
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

@@ -1,10 +1,13 @@
 package BoardMeet.Backend.Security.jwt;
 
+import BoardMeet.Backend.Model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class JwtUser implements UserDetails {
     public Long getId() {
@@ -16,6 +19,12 @@ public class JwtUser implements UserDetails {
     }
 
     private  final  Long id;
+
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    private  final Set<Role> role;
     private  final  String username;
     private  final String email;
     private  final  String password;
@@ -26,7 +35,7 @@ public class JwtUser implements UserDetails {
 
 
 
-    public JwtUser(Long id, String username, String email, boolean enabled,String password,Collection<? extends GrantedAuthority> authorities,Date lastPasswordResetDate) {
+    public JwtUser(Long id, String username, String email, boolean enabled,String password,Collection<? extends GrantedAuthority> authorities,Date lastPasswordResetDate,Set<Role> role) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -34,6 +43,7 @@ public class JwtUser implements UserDetails {
         this.enabled = enabled;
         this.authorities = authorities;
         this.lastPasswordResetDate = lastPasswordResetDate;
+        this.role = role;
     }
 
 

@@ -18,7 +18,7 @@ public class BoardGameChangeDTO {
         @NotEmpty
         private String artists;
         @NotEmpty
-        private  String publisher;
+        private  String publishers;
         @NotNull
         private int rangeOfPlayersMin;
         @NotNull
@@ -31,8 +31,6 @@ public class BoardGameChangeDTO {
         private int agePlayer;
         private MultipartFile rule;
         private MultipartFile avatarGame;
-
-        private String Publishers;
 
         public Long getId() {
                 return id;
@@ -74,12 +72,12 @@ public class BoardGameChangeDTO {
                 this.artists = artists;
         }
 
-        public String getPublisher() {
-                return publisher;
+        public String getPublishers() {
+                return publishers;
         }
 
-        public void setPublisher(String publisher) {
-                this.publisher = publisher;
+        public void setPublishers(String publisher) {
+                this.publishers = publisher;
         }
 
         public int getRangeOfPlayersMin() {
@@ -138,11 +136,4 @@ public class BoardGameChangeDTO {
                 this.avatarGame = avatarGame;
         }
 
-        public String getPublishers() {
-                return Publishers;
-        }
-
-        public void setPublishers(String publishers) {
-                Publishers = publishers;
-        }
 }

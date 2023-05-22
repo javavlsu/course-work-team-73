@@ -9,7 +9,6 @@ import BoardMeet.Backend.DTO.BoardGameChangeDTO;
 import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/boardGame/")
+@RequestMapping(value = "/api/boardGames/")
 public class BoardGamesController {
     @Autowired
     private final BoardGameService boardGameService;
@@ -27,13 +26,13 @@ public class BoardGamesController {
         this.boardGameService = boardGameService;
     }
     @GetMapping("recommendation/{id}")
-    public ResponseEntity<?> getRecommendation(@PathVariable Long id,@RequestParam("offset") Integer offset,
-                                               @RequestParam("limit") Integer limit){
+    public ResponseEntity<?> getRecommendation(@PathVariable Long id,@RequestParam(value = "offset",defaultValue = "0") Integer offset,
+                                               @RequestParam(value = "limit",defaultValue = "20") Integer limit){
         return  new ResponseEntity<>(boardGameService.getRecommendation(PageRequest.of(offset,limit)),HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<?> filter(BoardGameFilter boardGameFilter,@RequestParam("offset") Integer offset,
-                                    @RequestParam("limit") Integer limit){
+    public ResponseEntity<?> filter(BoardGameFilter boardGameFilter,@RequestParam(value = "offset",defaultValue = "0") Integer offset,
+                                    @RequestParam(value = "limit",defaultValue = "20") Integer limit){
 
         return new ResponseEntity<>(boardGameService.filter(boardGameFilter, PageRequest.of(offset,limit)),HttpStatus.OK);
     }
@@ -71,7 +70,7 @@ public class BoardGamesController {
             return new  ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
-    @Secured("ROLE_PUBLISHER")
+    @Secured("{ROLE_PUBLISHER,ROLE_ADMIN}")
     @DeleteMapping("{id}")
     public  ResponseEntity<?> delete(@PathVariable Long id){
         try {

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/comment/")
+@RequestMapping(value = "/api/comments/")
 public class CommentsController {
 
     @Autowired
@@ -31,8 +31,6 @@ public class CommentsController {
         }catch (NoAccessException e){
             return  new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
-
     }
     @GetMapping("{id}")
     public  ResponseEntity<?> get(@PathVariable Long id){

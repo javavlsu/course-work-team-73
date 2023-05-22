@@ -6,12 +6,14 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 @Entity
+@Table(name = "comment")
 public class Comment extends  BaseEntity{
 
     @Column
@@ -34,6 +36,9 @@ public class Comment extends  BaseEntity{
 
     @Column(name = "author_id")
     private Long authorId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id", insertable=false, updatable=false)
+    private User author;
 
     @Column(name = "game_id")
     private Long gameId;
@@ -132,4 +137,11 @@ public class Comment extends  BaseEntity{
         this.agePlayer = agePlayer;
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
 }

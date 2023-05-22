@@ -1,6 +1,7 @@
 package BoardMeet.Backend.Model;
 
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Role extends BaseEntity{
     private String name;
 
     @ManyToMany
+    @Lazy
     private List<User> users;
 
     @Override

@@ -21,7 +21,8 @@ public final class JwtUserFactory {
                 user.getStatus().equals(Status.ACTIVE),
                 user.getPassword(),
                 mapToGrantedAuthorities(new ArrayList<>(user.getRoles())),
-                user.getUpdated()
+                user.getUpdated(),
+                user.getRoles()
         );
     }
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {

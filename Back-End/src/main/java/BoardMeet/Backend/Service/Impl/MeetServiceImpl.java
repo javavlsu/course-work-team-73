@@ -19,7 +19,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.sql.rowset.Predicate;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class MeetServiceImpl implements MeetService {
     @Autowired
@@ -36,7 +39,8 @@ public class MeetServiceImpl implements MeetService {
 
     @Override
     public Page<Meet> getAll(PageRequest pageRequest) {
-        return meetRepository.findAll(pageRequest);
+        Page<Meet> pages = meetRepository.findAllOpen(pageRequest);
+        return pages;
     }
 
     @Override
@@ -68,43 +72,52 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public void exit(Long meetId, Long userId) throws  NotFoundMeetException, NoAccessException {
+    public Meet exit(Long meetId, Long userId) throws  NotFoundMeetException, NoAccessException {
         controllAccessService.tryAccess(userId);
         Meet meet = meetRepository.findById(meetId).orElseThrow(()->new NotFoundMeetException("Not Found exited meet this id: " + meetId));
         meet.getPlayers().removeIf(user -> (user.getId() == userId) );
+        meet.setPeopleCount(meet.getPeopleCount()-1);
+        meet.refreshState();
         meetRepository.save(meet);
+        return meet;
     }
     @Override
-    public void join(Long meetId, Long userId) throws NotFoundMeetException, NotFoundUserException, NoAccessException {
+    public Meet join(Long meetId, Long userId) throws NotFoundMeetException, NotFoundUserException, NoAccessException {
         controllAccessService.tryAccess(userId);
         Meet meet = meetRepository.findById(meetId).orElseThrow(()->new NotFoundMeetException("Not Found joining meet this id: " + meetId));
         User user =  userRepository.findById(userId).orElseThrow(()->new NotFoundMeetException("Not Found joining user this id: " + userId));
         meet.getPlayers().add(user);
+        meet.setPeopleCount(meet.getPeopleCount()+1);
+        meet.refreshState();
         meetRepository.save(meet);
+        return meet;
     }
 
     @Override
-    public void lock(Long id) throws  NotFoundMeetException, NoAccessException {
+    public Meet lock(Long id) throws  NotFoundMeetException, NoAccessException {
         Meet meetLocking = meetRepository.findById(id).orElseThrow(()->new NotFoundMeetException("Not Found locking meet this id: " + id));
         controllAccessService.tryAccess(meetLocking.getAuthorId());
         if(meetLocking.getState() == MeetState.STARTOPEN) {
             meetLocking.setState(MeetState.STARTLOCK);
             meetRepository.save(meetLocking);
         }
+        return meetLocking;
     }
 
     @Override
-    public void open(Long id) throws  NotFoundMeetException, NoAccessException {
+    public Meet open(Long id) throws  NotFoundMeetException, NoAccessException {
         Meet meetLocking = meetRepository.findById(id).orElseThrow(()-> new NotFoundMeetException("Not Found locking meet this id: " + id));
         controllAccessService.tryAccess(meetLocking.getAuthorId());
         if(meetLocking.getState() == MeetState.STARTLOCK){
             meetLocking.setState(MeetState.STARTOPEN);
             meetRepository.save(meetLocking);
         }
+        return meetLocking;
     }
     @Override
     public List<Meet> search(String searchVal) {
-        return meetRepository.findByNameContains(searchVal);
+        return meetRepository.findByCityContains(searchVal).stream()
+                .filter(m -> m.getState() ==  MeetState.STARTOPEN || m.getState() == MeetState.RECRUITING ).collect(Collectors.toList());
     }
     @Scheduled(fixedDelay = 10000)
     public void refreshStateMeet(){

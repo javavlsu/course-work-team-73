@@ -4,16 +4,18 @@ import BoardMeet.Backend.DTO.BoardGameChangeDTO;
 import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 import java.util.Set;
 
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Entity
+@Table(name = "board_game")
 public class BoardGame extends  BaseEntity{
 
     @Column
@@ -34,7 +36,9 @@ public class BoardGame extends  BaseEntity{
     private  Double gameTimeUser;
     @Column
     private  Double ratingUser;
+
     @Column
+    @Type(type = "text")
     private  String description;
     @Column
     private Double weightGameUser;
@@ -56,6 +60,9 @@ public class BoardGame extends  BaseEntity{
     private  Integer countComment;
     @Column(name = "author_id")
     private Long authorId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "author_id", insertable=false, updatable=false)
+    private User author;
     @OneToMany(mappedBy = "gameId",fetch = FetchType.EAGER)
     private Set<Comment> comments;
     public  BoardGame(){}
@@ -294,13 +301,12 @@ public class BoardGame extends  BaseEntity{
         this.comments = comments;
     }
 
-    public Long getAuthor() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthor(Long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
-
 
 }

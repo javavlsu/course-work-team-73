@@ -13,15 +13,15 @@ public class BoardGameCreateDTO implements Serializable {
     @NotEmpty
     private String genre;
     @NotNull
-    private int rangeOfPlayersMin;
+    private Integer rangeOfPlayersMin;
     @NotNull
-    private int rangeOfPlayersMax;
+    private Integer rangeOfPlayersMax;
     @NotNull
-    private int gameTime;
+    private Integer gameTime;
     @NotEmpty
     private String description;
     @NotNull
-    private int agePlayer;
+    private Integer agePlayer;
     @NotEmpty
     private String authorsGame;
     @NotEmpty
@@ -52,27 +52,27 @@ public class BoardGameCreateDTO implements Serializable {
         this.genre = genre;
     }
 
-    public int getRangeOfPlayersMin() {
+    public Integer getRangeOfPlayersMin() {
         return rangeOfPlayersMin;
     }
 
-    public void setRangeOfPlayersMin(int rangeOfPlayersMin) {
+    public void setRangeOfPlayersMin(Integer rangeOfPlayersMin) {
         this.rangeOfPlayersMin = rangeOfPlayersMin;
     }
 
-    public int getRangeOfPlayersMax() {
+    public Integer getRangeOfPlayersMax() {
         return rangeOfPlayersMax;
     }
 
-    public void setRangeOfPlayersMax(int rangeOfPlayersMax) {
+    public void setRangeOfPlayersMax(Integer rangeOfPlayersMax) {
         this.rangeOfPlayersMax = rangeOfPlayersMax;
     }
 
-    public int getGameTime() {
+    public Integer getGameTime() {
         return gameTime;
     }
 
-    public void setGameTime(int gameTime) {
+    public void setGameTime(Integer gameTime) {
         this.gameTime = gameTime;
     }
 
@@ -84,11 +84,11 @@ public class BoardGameCreateDTO implements Serializable {
         this.description = description;
     }
 
-    public int getAgePlayer() {
+    public Integer getAgePlayer() {
         return agePlayer;
     }
 
-    public void setAgePlayer(int agePlayer) {
+    public void setAgePlayer(Integer agePlayer) {
         this.agePlayer = agePlayer;
     }
 

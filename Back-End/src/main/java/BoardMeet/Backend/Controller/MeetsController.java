@@ -8,6 +8,7 @@ import BoardMeet.Backend.Service.MeetService;
 import BoardMeet.Backend.DTO.MeetChangeDTO;
 import BoardMeet.Backend.DTO.MeetCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,11 @@ public class MeetsController {
         this.meetService = meetService;
     }
     @GetMapping
-    public ResponseEntity<?> getAll(@RequestParam("offset") Integer offset,
-                                    @RequestParam("limit") Integer limit){
+    public ResponseEntity<?> getAll(@RequestParam(value = "offset",defaultValue = "0") Integer offset,
+                                    @RequestParam(value = "limit",defaultValue = "20") Integer limit){
+
         return new ResponseEntity<>(meetService.getAll(PageRequest.of(offset,limit)),HttpStatus.OK);
+
     }
     @GetMapping("{Id}")
     public ResponseEntity<?> get(@PathVariable Long Id){
@@ -59,7 +62,7 @@ public class MeetsController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
-    @Secured({"ROLE_PLAYER","ROLE_ORGANIZATION"})
+    @Secured({"ROLE_PLAYER","ROLE_ORGANIZATION","ROLE_ADMIN"})
     @DeleteMapping("{Id}")
     public  ResponseEntity<?> delete(@PathVariable  Long Id ){
         try {
@@ -76,8 +79,8 @@ public class MeetsController {
     @PutMapping("{meetId}/exitUser/{userId}")
     public  ResponseEntity<?> exit(@PathVariable Long meetId,@PathVariable Long userId){
         try {
-            meetService.exit(meetId,userId);
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            return new ResponseEntity<>(meetService.exit(meetId,userId),HttpStatus.OK);
         }catch (NotFoundMeetException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }catch (NoAccessException e) {
@@ -88,8 +91,8 @@ public class MeetsController {
     @PutMapping("{meetId}/joinUser/{userId}")
     public  ResponseEntity<?> Join(@PathVariable Long meetId,@PathVariable Long userId){
         try {
-            meetService.join(meetId,userId);
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            return new ResponseEntity<>(meetService.join(meetId,userId),HttpStatus.OK);
         }catch (NotFoundMeetException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }catch(NotFoundUserException e){
@@ -102,8 +105,8 @@ public class MeetsController {
     @PutMapping("{Id}/lock")
     public  ResponseEntity<?> Lock(@PathVariable Long Id)throws NoAccessException {
         try {
-            meetService.lock(Id);
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            return new ResponseEntity<>(meetService.lock(Id),HttpStatus.OK);
         }catch (NotFoundMeetException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }catch (NoAccessException e) {
@@ -114,8 +117,7 @@ public class MeetsController {
     @PutMapping("{Id}/open")
     public  ResponseEntity<?> Open(@PathVariable Long Id){
         try {
-            meetService.open(Id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(meetService.open(Id),HttpStatus.OK);
         }catch (NotFoundMeetException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }catch (NoAccessException e) {

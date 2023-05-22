@@ -14,9 +14,11 @@ import BoardMeet.Backend.Service.RecommendationService;
 import BoardMeet.Backend.DTO.BoardGameChangeDTO;
 import BoardMeet.Backend.DTO.BoardGameCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +27,8 @@ public class BoardGameServiceImpl implements BoardGameService {
 
     @Autowired
     private final BoardGameRepository boardGameRepository;
-
+    @Value("${recommendation.peopleCount}")
+    private  Long recommendationPeopleCount;
     @Autowired
     private  final FileService fileService;
     @Autowired
@@ -33,7 +36,7 @@ public class BoardGameServiceImpl implements BoardGameService {
 
     @Autowired
     private  final RecommendationService recommendationService;
-    public BoardGameServiceImpl(BoardGameRepository boardGameRepository, FileService fileService, ControllAccessService controllAccessService, RecommendationService recommendationService) {
+    public BoardGameServiceImpl(BoardGameRepository boardGameRepository, FileService fileService, ControllAccessService controllAccessService,  RecommendationService recommendationService) {
         this.boardGameRepository = boardGameRepository;
         this.fileService = fileService;
         this.controllAccessService = controllAccessService;
@@ -51,7 +54,7 @@ public class BoardGameServiceImpl implements BoardGameService {
         if(id <= 0 ){
             return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser"))).map(bg-> bg.roundUserRating());
         }
-        Page<BoardGame> bgs = boardGameRepository.getRecommendation(id, pageable).map(bg-> bg.roundUserRating());
+        Page<BoardGame> bgs = boardGameRepository.getRecommendation(id,recommendationPeopleCount, pageable).map(bg-> bg.roundUserRating());
         if(bgs.isEmpty() == true ){
             return boardGameRepository.findAll( pageable.withSort(Sort.by(Sort.Direction.DESC, "ratingUser"))).map(bg-> bg.roundUserRating());
         }
@@ -94,13 +97,14 @@ public class BoardGameServiceImpl implements BoardGameService {
         }
         boardGameChanging.change(boardGame);
         boardGameRepository.save(boardGameChanging);
-        return  boardGameChanging.roundUserRating();
+        return boardGameChanging.roundUserRating();
     }
 
     @Override
     public BoardGame create( BoardGameCreateDTO boardGame) throws NotAccessExtensionException, NoAccessException {
         BoardGame boardGameCreating = new BoardGame(boardGame);
         controllAccessService.tryAccess(boardGameCreating.getAuthorId());
+
         try {
             boardGameCreating.setGameAvatar(fileService.uploadBoardGameAvatar(boardGame.getAvatarGame()));
         } catch (IOException e) {
@@ -117,7 +121,7 @@ public class BoardGameServiceImpl implements BoardGameService {
         }
         boardGameRepository.save(boardGameCreating);
 
-        return  boardGameCreating.roundUserRating();
+        return boardGameCreating.roundUserRating();
     }
 
     @Override

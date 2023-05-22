@@ -20,6 +20,7 @@ public class BoardGameFilter implements Specification<BoardGame> {
     private  String artists;
     private String publishers;
     private Double ratingUser;
+    private Double weightGameUser;
     private  Integer rangeOfPlayersMin;
     private  Integer rangeOfPlayersMax;
     private  String sortBy;
@@ -53,8 +54,11 @@ public class BoardGameFilter implements Specification<BoardGame> {
         if(ratingUser!=null){
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("ratingUser"),ratingUser));
         }
+        if(weightGameUser!=null){
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("weightGameUser"),weightGameUser));
+        }
         if(rangeOfPlayersMax!=null){
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("rangeOfPlayersMax"),rangeOfPlayersMax));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("rangeOfPlayersMax"),rangeOfPlayersMax));
         }
         if(rangeOfPlayersMin!=null){
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("rangeOfPlayersMin"),rangeOfPlayersMin));
@@ -124,6 +128,14 @@ public class BoardGameFilter implements Specification<BoardGame> {
 
     public void setRatingUser(Double ratingUser) {
         this.ratingUser = ratingUser;
+    }
+
+    public Double getWeightGameUser() {
+        return weightGameUser;
+    }
+
+    public void setWeightGameUser(Double weightGameUser) {
+        this.weightGameUser = weightGameUser;
     }
 
     public Integer getRangeOfPlayersMin() {
