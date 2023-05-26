@@ -24,6 +24,4 @@ public interface UserService {
     Set<Meet> getCreatedMeet(Long Id) throws NotFoundUserException;
     Set<Meet> getJoinedMeet(Long Id) throws NotFoundUserException;
     Set<BoardGame> getCreatedBoardGame(Long Id) throws NotFoundUserException;
-
-
 }

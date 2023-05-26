@@ -72,24 +72,30 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public Meet exit(Long meetId, Long userId) throws  NotFoundMeetException, NoAccessException {
+    public Meet exit(Long meetId, Long userId) throws  NotFoundMeetException, NoAccessException{
         controllAccessService.tryAccess(userId);
         Meet meet = meetRepository.findById(meetId).orElseThrow(()->new NotFoundMeetException("Not Found exited meet this id: " + meetId));
-        meet.getPlayers().removeIf(user -> (user.getId() == userId) );
-        meet.setPeopleCount(meet.getPeopleCount()-1);
-        meet.refreshState();
-        meetRepository.save(meet);
+        if(meet.getPlayers().stream().map(x -> x.getId()).toList().contains(userId))
+        {
+            meet.getPlayers().removeIf(user -> (user.getId() == userId) );
+            meet.setPeopleCount(meet.getPeopleCount()-1);
+            meet.refreshState();
+            meetRepository.save(meet);
+        }
         return meet;
     }
     @Override
     public Meet join(Long meetId, Long userId) throws NotFoundMeetException, NotFoundUserException, NoAccessException {
         controllAccessService.tryAccess(userId);
         Meet meet = meetRepository.findById(meetId).orElseThrow(()->new NotFoundMeetException("Not Found joining meet this id: " + meetId));
-        User user =  userRepository.findById(userId).orElseThrow(()->new NotFoundMeetException("Not Found joining user this id: " + userId));
-        meet.getPlayers().add(user);
-        meet.setPeopleCount(meet.getPeopleCount()+1);
-        meet.refreshState();
-        meetRepository.save(meet);
+        User user =  userRepository.findById(userId).orElseThrow(()->new NotFoundUserException("Not Found joining user this id: " + userId));
+        if(!meet.getPlayers().stream().map(x -> x.getId()).toList().contains(user.getId()))
+        {
+            meet.getPlayers().add(user);
+            meet.setPeopleCount(meet.getPeopleCount()+1);
+            meet.refreshState();
+            meetRepository.save(meet);
+        };
         return meet;
     }
 

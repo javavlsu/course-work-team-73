@@ -17,7 +17,7 @@ public interface MeetService {
     Meet create(MeetCreateDTO meet)throws NoAccessException;
     Meet change(MeetChangeDTO meet) throws NotFoundMeetException, NoAccessException;
     void delete(Long Id)  throws  NotFoundMeetException, NoAccessException;
-    Meet exit(Long meetId, Long userId) throws NotFoundMeetException, NoAccessException;
+    Meet exit(Long meetId, Long userId) throws NotFoundMeetException,NoAccessException;
     Meet join(Long meetId, Long userId) throws NotFoundMeetException, NotFoundUserException, NoAccessException;
     Meet lock(Long Id) throws NotFoundMeetException, NoAccessException;
     Meet open(Long Id) throws NotFoundMeetException, NoAccessException;
