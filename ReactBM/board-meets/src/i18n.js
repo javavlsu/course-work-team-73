@@ -8,7 +8,7 @@ i18n
   .use(initReactI18next)
   .init({
     debug: true,
-    fallbackLng: 'en',
+    fallbackLng: 'ru',
+    cookie: 'lang',
   });
-  i18n.changeLanguage('en'); 
 export default i18n;
