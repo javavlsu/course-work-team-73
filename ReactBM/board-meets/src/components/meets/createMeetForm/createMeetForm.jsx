@@ -143,7 +143,7 @@ export const CreateMeetForm = ({ userId, url }) => {
                     message: t("meetsPage.form.inputMeetTime.errors.pattern"),
                   },
                   max: {
-                    value: 1200,
+                    value: 7200,
                     message: t("meetsPage.form.inputMeetTime.errors.maxValue"),
                   },
                   min: {
@@ -214,6 +214,10 @@ export const CreateMeetForm = ({ userId, url }) => {
                     "meetsPage.form.inputDateTime.errors.cityMaxLength"
                   ),
                 },
+                minLength: {
+                  value: 5,
+                  message: t("meetsPage.form.inputName.errors.minLength"),
+                },
               })}
             />
             {errors?.city && <p className="error">{errors.city.message}</p>}
@@ -238,6 +242,10 @@ export const CreateMeetForm = ({ userId, url }) => {
                   message: t(
                     "meetsPage.form.inputDateTime.errors.locationMaxLength"
                   ),
+                },
+                minLength: {
+                  value: 5,
+                  message: t("meetsPage.form.inputName.errors.minLength"),
                 },
               })}
             />
@@ -268,6 +276,10 @@ export const CreateMeetForm = ({ userId, url }) => {
                     value: 25,
                     message: t("meetsPage.form.inputLink.maxLength"),
                   },
+                  minLength: {
+                    value: 10,
+                    message: t("meetsPage.form.inputName.errors.minLength"),
+                  },
                 })}
               />
               {errors?.communication && (
@@ -295,6 +307,7 @@ export const CreateMeetForm = ({ userId, url }) => {
                 className={style.input}
                 placeholder={t("meetsPage.form.inputGames.placeholder")}
                 maxLength="25"
+                min="3"
                 {...register("game")}
               />
             </div>
