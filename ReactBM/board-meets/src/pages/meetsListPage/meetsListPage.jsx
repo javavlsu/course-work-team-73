@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 export const MeetsListPage = ({ url }) => {
   const [meets, setMeets] = useState();
   const [totalPages, setTotalPages] = useState(0);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
   const pageArray = getPagesArray(totalPages);
   const { t } = useTranslation();
