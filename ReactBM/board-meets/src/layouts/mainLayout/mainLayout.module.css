@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.outlet {
+  box-sizing: border-box;
+  /* min-height: 100%; */
+  padding-bottom: 91px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.wrap {
+  min-height: 100%;
+}
