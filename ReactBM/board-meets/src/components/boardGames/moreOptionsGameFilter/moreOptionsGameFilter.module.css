@@ -1,0 +1,115 @@
+.container {
+  width: inherit;
+  background-color: #edffec;
+  z-index: 0;
+  transform: translateY(-20px);
+  border-radius: 0 0 20px 20px;
+  padding: 50px 20px 20px 20px;
+  box-sizing: border-box;
+}
+.selectContainer {
+  display: flex;
+  align-items: center;
+}
+.selectGenre {
+  width: 150px;
+  height: 30px;
+  background: #ffffff;
+  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 9px;
+  border: 0;
+  box-sizing: border-box;
+  padding-left: 10px;
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.selectGenre:focus {
+  outline: 3px solid #057402;
+}
+.optionsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+option:disabled{
+  color:#565856;
+}
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.input,
+.inputSecondColumn {
+  width: 120px;
+  height: 30px;
+  background: #ffffff;
+  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 9px;
+  border: 0;
+  box-sizing: border-box;
+  padding-left: 10px;
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.input:focus,
+.inputSecondColumn:focus {
+  outline: 3px solid #057402;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+}
+.inputSecondColumn {
+  width: 82px;
+  margin-right: 10px;
+}
+.button {
+  cursor: pointer;
+  background: #64c661;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 66px;
+  width: 84px;
+  height: 35px;
+  color: #edffec;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  border: 0;
+}
+
+hr{
+  margin-top:30px;
+  margin-bottom: 10px;
+  border-top: 2px solid #64c661;
+}
+
+.button:active {
+  background: #4e9d4a;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+}
+.buttonContainer{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.check{
+  display:none;
+}
+.check1, .check2{
+  cursor: pointer;
+}
+.check2{
+  display: none;
+}
+.check:checked ~ .labelCheck .check1  {
+  display: none;
+}
+.check:checked ~ .labelCheck .check2  {
+  display: block;
+}

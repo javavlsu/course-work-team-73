@@ -1,0 +1,26 @@
+.pageList {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.defaultPage {
+  border: 3px solid #64c661;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 6px;
+  font-size: 20px;
+  color: #057402;
+  cursor: pointer;
+  text-align: center;
+  width: 35px;
+}
+.defaultPage:hover {
+  background-color: #64c661;
+  color: #ffffff;
+}
+.activePage {
+  background-color: #64c661;
+  color: #ffffff;
+}
