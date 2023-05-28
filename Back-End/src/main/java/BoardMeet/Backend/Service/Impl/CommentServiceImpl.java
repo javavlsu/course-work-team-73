@@ -39,11 +39,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment1 = commentRepository.saveAndFlush(commentCreating);
         boardGameService.addRatingData(commentCreating);
         recommendationService.changeByComment(comment);
-
-        try {
-            commentCreating.setAuthor(userService.get(commentCreating.getAuthorId()));
-        }catch (Exception e){}
-
+        
         return commentCreating;
     }
 
